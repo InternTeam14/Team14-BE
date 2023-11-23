@@ -12,6 +12,6 @@ public class test {
 	@GetMapping()
 	public String viewIndex(ModelMap model) {
 		
-		return "adminUI/managementCustomerDetail";
+		return "adminUI/managementManufacturer2";
 	}
 }

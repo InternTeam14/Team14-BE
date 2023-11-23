@@ -72,3 +72,24 @@ tbody tr{
     border-radius: 6px;
     background: #fff;
 }
+
+.row-user-info:hover {
+    background: #F1F1F1;
+    cursor: pointer;
+}
+
+.box-form{
+	padding: 20px;
+}
+
+.pagination-t{
+	justify-content: center;
+}
+
+.box-user-btn{
+	text-align: right;
+}
+
+.user-btn{
+	display: inline-block;
+}
