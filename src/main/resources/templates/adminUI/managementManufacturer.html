@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{restaurantForm.html}"
+	>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -39,19 +41,19 @@
                         <span class="main__logo--text bold" style="font-size: 26px;">Tên website</span>
                     </div>
                 </a>
+                <a href="statistics.html" class="list-group-item list-group-item-action">Dashboard</a>
                 <a class="list-group-item list-group-item-action" data-toggle="collapse" href="#subTabDish"
                     role="button" aria-expanded="false" aria-controls="collapseExample">Quản lý
                     <i class="fa-solid fa-angle-down icon-angle"></i>
                 </a>
                 <div class="collapse" id="subTabDish">
-                    <a href="#" class="list-group-item list-group-item-action sub-tabs">Quản lý danh mục</a>
+                    <a href="qltheloai2.html" class="list-group-item list-group-item-action sub-tabs">Quản lý danh mục</a>
                     <a href="#" class="list-group-item list-group-item-action sub-tabs">Quản lý hãng</a>
-                    <a href="#" class="list-group-item list-group-item-action sub-tabs">Quản lý sản phẩm</a>
+                    <a href="managementProduct.html" class="list-group-item list-group-item-action sub-tabs">Quản lý sản phẩm</a>
                 </div>
-                <a href="#" class="list-group-item list-group-item-action">Quản lý đơn hàng</a>
-                <a href="#" class="list-group-item list-group-item-action">Quản lý khách hàng</a>
-                <a href="#" class="list-group-item list-group-item-action">Quản lý tài xế</a>
-                <a href="#" class="list-group-item list-group-item-action">Thống kê</a>
+                <a href="management_Oder.html" class="list-group-item list-group-item-action">Quản lý đơn hàng</a>
+                <a href="managementCustomer.html" class="list-group-item list-group-item-action">Quản lý khách hàng</a>
+                <a href="managerment_ statistics_delivery.html" class="list-group-item list-group-item-action">Thống kê tài xế giao hàng</a>
                 <a href="#" class="list-group-item list-group-item-action">Đăng xuất</a>
             </div>
         </div>
@@ -68,24 +70,26 @@
             <div class="tab-content" id="myTabContent">
 
                 <div class="tab-pane fade show active" id="management-categories" role="tabpanel" aria-labelledby="home-tab">
-                    <form action="/admin/products/saveOrUpdate" method="post" class="card container form-management"
-                        enctype="multipart/form-data" th:object="${product}">
+                    <form action="/web/admin/manufacturer/saveOrUpdate" method="post" class="card container form-management"
+                        enctype="multipart/form-data" th:object="${manu}">
                             <div class="box-l">
+						<div th:if="${mess}" th:text="${mess}" class="alert alert-primary" role="alert">
+						  This is a dark alert—check it out!
+						</div>
 
-                                <label for="categories-id">ID hãng </label>
-                                <input type="text" id="categories-id" class="form-control" >
-                                <label for="categories-name">Tên hãng</label>
-                                <input type="text" id="categories-name" class="form-control">
+                          <input type="hidden" th:field="*{isEdit}" name="isEdit" >
+                                <label for="manuID" >ID hãng </label>
+                                <input th:field="*{manuId}" name="manuID" readonly type="text" id="manuID" class="form-control" >
+                                <label for="manuName">Tên hãng</label>
+                                <input th:field="*{title}" name="title" type="text" id="manuName" class="form-control">
                                 
                             </div>
 
                         <div class="box-btn">
-
-                            <button class="btn btn-info">Save</button>
-
-                            <a><button type="reset" class="btn btn-primary">Reset</button></a>
-
-                        </div>
+								<button class="btn btn-info" th:text="${manu.isEdit ? 'Cập nhật' : 'Lưu'}"></button>
+								<a><button th:if="${manu.isEdit==false}" type="reset" class="btn btn-primary" >Đặt lại</button></a>
+								<a style="background-color:#ED1D24" th:if="${manu.isEdit==true}" type="button" class="btn btn-primary" th:href="@{'/web/admin/manufacturer/delete/' + ${manu.manuId}}">Delete</a>
+					</div>
                     </form>
                 </div>
 
@@ -99,18 +103,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="item : ${products}">
-                                <td scope="row" th:text="${item.productId}">H-123</td>
-                                <td scope="row" th:text="${item.name}">Apple</td>
-                                <td><a class="edit" th:href="@{'/admin/products/edit/'+${item.productId}}">Edit</a>
-                                    | <a th:href="@{'/admin/products/delete/'+${item.productId}}">Delete</a>
-                                </td>
-                            </tr>
-                            <tr th:each="item : ${products}">
-                                <td scope="row" th:text="${item.productId}">H-123</td>
-                                <td scope="row" th:text="${item.name}">Samsung</td>
-                                <td><a class="edit" th:href="@{'/admin/products/edit/'+${item.productId}}">Edit</a> 
-                                    | <a th:href="@{'/admin/products/delete/'+${item.productId}}">Delete</a>
+                            <tr th:each="item : ${manus}">
+                                <td scope="row" th:text="${item.manuId}">H-123</td>
+                                <td scope="row" th:text="${item.title}">Apple</td>
+                                <td><a class="edit" th:href="@{'/web/admin/manufacturer/edit/'+${item.manuId}}">Edit</a>
+                                    | <a th:href="@{'/web/admin/manufacturer/delete/'+${item.manuId}}">Delete</a>
                                 </td>
                             </tr>
                         </tbody>

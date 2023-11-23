@@ -2,7 +2,6 @@ package com.be.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import graduate.domain.Dish;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
