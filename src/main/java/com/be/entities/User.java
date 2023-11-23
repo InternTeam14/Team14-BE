@@ -1,6 +1,7 @@
 package com.be.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,22 +15,30 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name="users")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long userId;
-
-    private String username;
+	@Id
+	@Column(length = 12)
+    private String userId;
+	@Column(length = 50, columnDefinition = "nvarchar(100)")
     private String fullName;
-    private String password;
     private String email;
     private String phone;
+	@Column(columnDefinition = "nvarchar(100)")
     private String address;
     private String avatar;
-    private boolean enabled = true;
+    private boolean enabled;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnore
+
+	@OneToMany(mappedBy = "users")
     private List<Order> orders;
-
+	@OneToMany(mappedBy = "users")
+    private List<Comment> comments;
+	@OneToMany(mappedBy = "users")
+    private List<Cart> carts;
+    
+    @OneToOne
+    @JoinColumn(name = "username", referencedColumnName = "username")
+    private Account account;
+    
 }

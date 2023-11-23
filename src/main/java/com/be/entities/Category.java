@@ -1,30 +1,33 @@
 package com.be.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import graduate.domain.Dish;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "category")
 public class Category {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long cateId;
+	@Id
+	@Column(length = 12)
+	private String cateId;
+	@Column(length = 100, columnDefinition = "nvarchar(100)")
     private String title;
 
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnore
-    private Set<Product> products = new HashSet<>();
+	@OneToMany(mappedBy = "category")
+    private List<Product> products;
 }
 

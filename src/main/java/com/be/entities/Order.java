@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -16,21 +18,29 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "orders")
 public class Order {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long orderId;
-    private String orderFullName;
-    private String orderFullOder;
-    private String orderContactNumber;
+	@Column(length = 12)
+    private String orderId;
+	@Column(columnDefinition = "nvarchar(1000)")
     private String note;
+	@Column(length = 50, columnDefinition = "nvarchar(100)")
     private String orderStatus;
-    private Double orderAmount;
-    private Integer quantity;
-    private Date orderDate;
-    @ManyToOne(fetch = FetchType.EAGER)
-    private User user;
+    private Double totalAmount;
+    private Integer totalQuantity;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "order")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date orderDate;
+	
+	@PrePersist
+    public void prePersist() {
+        Calendar calendar = Calendar.getInstance();
+        orderDate = calendar.getTime();
+    }
+
+	@OneToMany(mappedBy = "orders")
     private List<OrderDetail> orderDetails;
+	
+	@ManyToOne
+	@JoinColumn(name = "userID", referencedColumnName = "userID")
+	private User users;
 }

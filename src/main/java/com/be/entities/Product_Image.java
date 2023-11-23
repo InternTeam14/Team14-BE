@@ -14,6 +14,8 @@ public class Product_Image {
     @Column(length = 50000000)
     private byte[] pcyByte;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Product product;
+
+	@ManyToOne
+	@JoinColumn(name = "productID", referencedColumnName = "productID")
+	private Product product;
 }

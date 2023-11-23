@@ -5,28 +5,39 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "review")
 public class Review {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long reId;
+    private Long reviewId;
 
-    @Column(length = 10000)
+	@Column(columnDefinition = "nvarchar(100)")
     private String content;
     private Double value;
 
     private String image;
-    private Date dateCreate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Product product;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createDate;
+	
+	@PrePersist
+    public void prePersist() {
+        Calendar calendar = Calendar.getInstance();
+        createDate = calendar.getTime();
+    }
 
-    @OneToOne
-    private User user;
+	@ManyToOne
+	@JoinColumn(name = "productID", referencedColumnName = "productID")
+	private Product product;
+	@ManyToOne
+	@JoinColumn(name = "userId", referencedColumnName = "userId")
+	private User users;
 }

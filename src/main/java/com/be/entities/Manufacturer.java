@@ -2,27 +2,28 @@ package com.be.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "manufacturer")
 public class Manufacturer {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+	@Id
+	@Column(length = 12)
     private Long manuId;
+	@Column(length = 100, columnDefinition = "nvarchar(100)")
     private String title;
 
-    @OneToMany(mappedBy = "manufacturer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Set<Product> products = new HashSet<>();
+	@OneToMany(mappedBy = "manufacturer")
+    private List<Product> products;
 }

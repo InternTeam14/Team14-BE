@@ -11,20 +11,18 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "order_detail")
+@Table(name = "orderDetail")
 public class OrderDetail {
+	@Id
+	@Column(length = 10)
+	private String orderDtId;
+    private Integer quantity;
+    private Double amount;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "order_detail_id")
-    private Long id;
-
-    private int quantity;
-
-    @OneToOne
-    private Product product;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id")
-    private Order order;
+	@ManyToOne
+	@JoinColumn(name = "productID", referencedColumnName = "productID")
+	private Product product;
+	@ManyToOne
+	@JoinColumn(name = "orderId", referencedColumnName = "orderId")
+	private Order orders;
 }

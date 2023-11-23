@@ -15,35 +15,39 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "product")
 public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long pId;
-
+	@Id
+	@Column(length = 12)
+	private String productID;
+	@Column(length = 100, columnDefinition = "nvarchar(100)")
     private String title;
-
-    @Column(length = 10000000)
+	@Column(columnDefinition = "nvarchar(500)")
     private String description;
-
     private String config;
     private Double price;
     private Double discountPrice;
     private String images;
-    private Boolean active = false;
+    private Boolean active;
     private Integer quantity;
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Category category;
+    
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Manufacturer manufacturer;
+	@OneToMany(mappedBy = "product")
+    private List<Product_Image> product_Images;
+	@OneToMany(mappedBy = "product")
+    private List<OrderDetail> orderDetails;
+	@OneToMany(mappedBy = "product")
+    private List<Review> reviews;
+	@OneToMany(mappedBy = "product")
+    private List<Comment> comments;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "product")
-    private Set<Product_Image> productImages;
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Comment> comment = new HashSet<>();
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Review> reviews = new HashSet<>();
+	@ManyToOne
+	@JoinColumn(name = "manuId", referencedColumnName = "manuId")
+	private Manufacturer manufacturer;
+	@ManyToOne
+	@JoinColumn(name = "cateId", referencedColumnName = "cateId")
+	private Category category;
+	@ManyToOne
+	@JoinColumn(name = "cartId", referencedColumnName = "cartId")
+	private Cart cart;
 }
