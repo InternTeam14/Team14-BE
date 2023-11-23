@@ -27,7 +27,8 @@ public class User {
 	@Column(columnDefinition = "nvarchar(100)")
     private String address;
     private String avatar;
-    private boolean enabled;
+    private Boolean enabled;
+    private Boolean sex;
 
 
 	@OneToMany(mappedBy = "users")

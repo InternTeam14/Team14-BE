@@ -14,8 +14,8 @@ import javax.persistence.*;
 @Table(name = "orderDetail")
 public class OrderDetail {
 	@Id
-	@Column(length = 10)
-	private String orderDtId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long orderDtId;
     private Integer quantity;
     private Double amount;
 
