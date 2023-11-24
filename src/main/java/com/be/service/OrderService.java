@@ -22,7 +22,7 @@ public interface OrderService {
 
 	Order getReferenceById(Long id);
 
-	void deleteAll(Iterable<? extends Order> entities);
+	
 
 	void deleteAllById(Iterable<? extends Long> ids);
 
@@ -76,14 +76,8 @@ public interface OrderService {
 
 	<S extends Order> S save(S entity);
 
-	Long totalOrderAmountSell();
-
-	Long totalQuantitySell();
-
-	Long countTotalUserByPrduct();
+	Long countTotalUser();
 
 	Long countTotalOrder();
-
-	List<Order> listOrder();
 
 }

@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 
-import com.be.entities.Order;
 import com.be.entities.OrderDetail;
 
 public interface OrderDetailService {
@@ -77,5 +76,12 @@ public interface OrderDetailService {
 
 	<S extends OrderDetail> S save(S entity);
 
+	Long countTotatlQuantityOfProduct();
+
+	Long countTotatlAmountOfProduct();
+
+	Long countTotatlProductSell();
+
+	List<OrderDetail> listProductSell();
 
 }
