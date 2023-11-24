@@ -73,9 +73,8 @@
                     <form action="/web/admin/manufacturer/saveOrUpdate" method="post" class="card container form-management"
                         enctype="multipart/form-data" th:object="${manu}">
                             <div class="box-l">
-						<div th:if="${mess}" th:text="${mess}" class="alert alert-primary" role="alert">
-						  This is a dark alert—check it out!
-						</div>
+                            <!-- Message -->
+						<div th:if="${mess}" th:text="${mess}" class="alert alert-primary" role="alert"></div>
 
                           <input type="hidden" th:field="*{isEdit}" name="isEdit" >
                                 <label for="manuID" >ID hãng </label>
