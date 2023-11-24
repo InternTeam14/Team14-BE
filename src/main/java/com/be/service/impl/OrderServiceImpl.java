@@ -179,27 +179,26 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Override
 	public Long countTotalOrder() {
-		return orderRepository.countTotalOrder();
+		return null;
 	}
 
 	@Override
 	public List<Order> listOrder() {
-		return orderRepository.listOrder();
-	}
+		return null;}
 
 	@Override
 	public Long countTotalUserByPrduct() {
-		return orderRepository.countTotalUserByPrduct();
+		return null;
 	}
 
 	@Override
 	public Long totalQuantitySell() {
-		return orderRepository.totalQuantitySell();
+		return null;
 	}
 	
 	@Override
 	public Long totalOrderAmountSell() {
-		return orderRepository.totalOrderAmountSell();
+		return null;
 	}
 	
 }

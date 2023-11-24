@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.be.entities.Order;
 import com.be.entities.OrderDetail;
-import com.be.entities.Product;
-import com.be.model.OrderDetailModel;
+
 import com.be.service.OrderDetailService;
 import com.be.service.OrderService;
 import com.be.service.ProductService;
