@@ -16,7 +16,7 @@ import java.util.Date;
 @Table(name = "review")
 public class Review {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
 
 	@Column(columnDefinition = "nvarchar(100)")

@@ -40,19 +40,20 @@
                         <span class="main__logo--text bold" style="font-size: 26px;">Tên website</span>
                     </div>
                 </a>
+                <a href="statistics.html" class="list-group-item list-group-item-action">Dashboard</a>
                 <a class="list-group-item list-group-item-action" data-toggle="collapse" href="#subTabDish"
                     role="button" aria-expanded="false" aria-controls="collapseExample">Quản lý
                     <i class="fa-solid fa-angle-down icon-angle"></i>
                 </a>
                 <div class="collapse" id="subTabDish">
-                    <a href="#" class="list-group-item list-group-item-action sub-tabs">Quản lý danh mục</a>
-                    <a href="#" class="list-group-item list-group-item-action sub-tabs">Quản lý hãng</a>
-                    <a href="#" class="list-group-item list-group-item-action sub-tabs">Quản lý sản phẩm</a>
+                    <a href="qltheloai2.html" class="list-group-item list-group-item-action sub-tabs">Quản lý danh mục</a>
+                    <a href="managementManufacturer.html" class="list-group-item list-group-item-action sub-tabs">Quản lý hãng</a>
+                    <a href="managementProduct.html" class="list-group-item list-group-item-action sub-tabs">Quản lý sản phẩm</a>
                 </div>
-                <a href="#" class="list-group-item list-group-item-action">Quản lý đơn hàng</a>
+                <a href="management_Oder.html" class="list-group-item list-group-item-action">Quản lý đơn hàng</a>
                 <a href="#" class="list-group-item list-group-item-action">Quản lý khách hàng</a>
-                <a href="#" class="list-group-item list-group-item-action">Quản lý tài xế</a>
-                <a href="#" class="list-group-item list-group-item-action">Thống kê</a>
+                <a href="managerment_ statistics_delivery.html" class="list-group-item list-group-item-action">Thống kê tài xế giao hàng</a>
+        
                 <a href="#" class="list-group-item list-group-item-action">Đăng xuất</a>
             </div>
         </div>
@@ -76,31 +77,18 @@
                         <tr>
                             <th scope="col">ID Khách</th>
                             <th scope="col">Họ và tên</th>
-                            <th scope="col">Giới tính</th>
                             <th scope="col">Số điện thoại</th>
                             <th scope="col">Email</th>
                             <th scope="col">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="item : ${products}">
-                            <td scope="row" th:text="${item.productId}">123</td>
-                            <td scope="row" th:text="${item.name}">Nguyễn Minh Thành</td>
-                            <td th:text="${item.price}">Nam</td>
-                            <td th:text="${item.quantity}">0708116524</td>
-                            <td th:text="${item.facture}">thanhducam@gmail.com</td>
-                            <td><a class="edit" th:href="@{'/admin/products/edit/'+${item.productId}}">Chat</a>
-                                | <a th:href="@{'/admin/products/delete/'+${item.productId}}">Delete</a>
-                            </td>
-                        </tr>
-                        <tr th:each="item : ${products}">
-                            <td scope="row" th:text="${item.productId}">456</td>
-                            <td scope="row" th:text="${item.name}">Nguyễn Văn Rô</td>
-                            <td th:text="${item.price}">Nam</td>
-                            <td th:text="${item.quantity}">03452892</td>
-                            <td th:text="${item.facture}">ro123@gmail.com</td>
-                            <td><a class="edit" th:href="@{'/admin/products/edit/'+${item.productId}}">Chat</a>
-                                | <a th:href="@{'/admin/products/delete/'+${item.productId}}">Delete</a>
+                        <tr class="row-user-info" th:each="item : ${users}">
+                            <td scope="row" th:text="${item.userId}">123</td>
+                            <td scope="row" th:text="${item.fullName}">Nguyễn Minh Thành</td>
+                            <td th:text="${item.phone}">0708116524</td>
+                            <td th:text="${item.email}">thanhducam@gmail.com</td>
+                            <td><a class="edit" th:href="@{'/web/admin/user/detail/'+${item.userId}}">Chi tiết</a>
                             </td>
                         </tr>
                     </tbody>

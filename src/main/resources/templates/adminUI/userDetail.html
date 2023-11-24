@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QUẢN LÝ HÃNG</title>
+    <title>THÔNG TIN CHI TIẾT</title>
     <!-- Icons -->
     <link rel="stylesheet" href="/assets/icons/themify-icons/themify-icons.css">
     <script src="https://kit.fontawesome.com/cac033d21b.js" crossorigin="anonymous"></script>
@@ -60,63 +60,77 @@
     </article>
 
     <main>
-        <div class="container box-main">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#management-categories" role="tab"
-                        aria-controls="management-categories" aria-selected="true">Quản lý hãng</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#list-categories" role="tab"
-                        aria-controls="list-categories" aria-selected="false">Danh sách hãng</a></li>
-            </ul>
-            <div class="tab-content" id="myTabContent">
-
-                <div class="tab-pane fade show active" id="management-categories" role="tabpanel" aria-labelledby="home-tab">
-                    <form action="/web/admin/manufacturer/saveOrUpdate" method="post" class="card container form-management"
-                        enctype="multipart/form-data" th:object="${manu}">
-                            <div class="box-l">
-						<div th:if="${mess}" th:text="${mess}" class="alert alert-primary" role="alert">
-						  This is a dark alert—check it out!
-						</div>
-
-                          <input type="hidden" th:field="*{isEdit}" name="isEdit" >
-                                <label for="manuID" >ID hãng </label>
-                                <input th:field="*{manuId}" name="manuID" readonly type="text" id="manuID" class="form-control" >
-                                <label for="manuName">Tên hãng</label>
-                                <input th:field="*{title}" name="title" type="text" id="manuName" class="form-control">
-                                
-                            </div>
-
-                        <div class="box-btn">
-								<button class="btn btn-info" th:text="${manu.isEdit ? 'Cập nhật' : 'Lưu'}"></button>
-								<a><button th:if="${manu.isEdit==false}" type="reset" class="btn btn-primary" >Đặt lại</button></a>
-								<a style="background-color:#ED1D24" th:if="${manu.isEdit==true}" type="button" class="btn btn-primary" th:href="@{'/web/admin/manufacturer/delete/' + ${manu.manuId}}">Delete</a>
-					</div>
-                    </form>
-                </div>
-
-                <div class="tab-pane fade" id="list-categories" role="tabpanel" aria-labelledby="profile-tab">
-                    <table class="table tbl-cart">
-                        <thead class="thead-light">
-                            <tr>
-                                <th scope="col">ID Hãng</th>
-                                <th scope="col">Tên hãng</th>
-                                <th scope="col">Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="item : ${manus}">
-                                <td scope="row" th:text="${item.manuId}">H-123</td>
-                                <td scope="row" th:text="${item.title}">Apple</td>
-                                <td><a class="edit" th:href="@{'/web/admin/manufacturer/edit/'+${item.manuId}}">Edit</a>
-                                    | <a th:href="@{'/web/admin/manufacturer/delete/'+${item.manuId}}">Delete</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <div class="container box-form">
+        <!-- Tạo biểu mẫu ngang -->
+        <form class="form-horizontal" th:action="@{/web/admin/user/update}" method="post" th:object="${user}">
+            <!-- Tiêu đề biểu mẫu -->
+            <h2 class="text-center" style="margin-bottom: 30px;">Quản Lý Thông Tin khách hàng</h2>
+            <!-- Nhóm các trường nhập liệu và nhãn -->
+            <div class="form-group row">
+                <!-- Nhãn cho trường họ và tên -->
+                <label class="col-sm-2 col-form-label">ID:</label>
+                <!-- Trường nhập liệu cho họ và tên -->
+                <div class="col-sm-10">
+                    <input th:field="*{userId}" name="userId" type="text" class="form-control"readonly>
                 </div>
             </div>
-
-        </div>
-
+            <div class="form-group row">
+                <!-- Nhãn cho trường họ và tên -->
+                <label for="name" class="col-sm-2 col-form-label">Họ và tên:</label>
+                <!-- Trường nhập liệu cho họ và tên -->
+                <div class="col-sm-10">
+                    <input th:field="*{fullName}" name="fullName" type="text" class="form-control" id="name" placeholder="Nhập họ và tên">
+                </div>
+            </div>
+            <div class="form-group row">
+                <!-- Nhãn cho trường email -->
+                <label for="email" class="col-sm-2 col-form-label">Email:</label>
+                <!-- Trường nhập liệu cho email -->
+                <div class="col-sm-10">
+                    <input th:field="*{email}" name="email" type="email" class="form-control" id="email" placeholder="Nhập email">
+                </div>
+            </div>
+            <div class="form-group row">
+                <!-- Nhãn cho trường Số điện thoại -->
+                <label for="phoneNumber" class="col-sm-2 col-form-label">SDT:</label>
+                <!-- Trường nhập liệu số điện thoại -->
+                <div class="col-sm-10">
+                    <input th:field="*{phone}" name="phone" type="text" class="form-control" id="phoneNumber" placeholder="Nhập SDT">
+                </div>
+            </div>
+            <div class="form-group row">
+                <!-- Nhãn cho trường giới tính -->
+                <label class="col-sm-2 col-form-label">Giới tính:</label>
+                <!-- Trường nhập liệu cho giới tính -->
+                <div class="col-sm-10">
+                    <label for="male"><input th:checked="*{sex}" value="1" type="radio" id="male" name="sex"> Nam</label>
+                   <label for="female"><input th:checked="*{!sex}" value="0" type="radio" id="female" name="sex"> Nữ</label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <!-- Nhãn cho trường email -->
+                <label for="address" class="col-sm-2 col-form-label">Địa chỉ:</label>
+                <!-- Trường nhập liệu cho email -->
+                <div class="col-sm-10">
+                    <input th:field="*{address}" name="address" type="text" class="form-control" id="address" placeholder="Nhập địa chỉ">
+                </div>
+            </div>
+            <!-- Nhóm các nút chức năng -->
+            <div class="form-group box-user-btn">
+                <!-- Nút sửa -->
+                <div class="user-btn ">
+                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                </div>
+                <!-- Nút xóa -->
+                <div class="user-btn ">
+                    <button th:text="*{enabled==true ? 'Tạm khoá' : 'Mở khoá'}"
+                    onclick="document.getElementById('lockOrUnlock').click()" type="button" class="btn btn-danger"></button>
+                    <a style="display: none" id="lockOrUnlock" th:href="@{'/web/admin/user/lockOrUnlock/'+ *{userId}+'/'+*{enabled}}"></a>
+                </div>
+            </div>
+            
+        </form>
+    </div>
     </main>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -20,7 +20,7 @@ import java.util.Set;
 public class Manufacturer {
 	@Id
 	@Column(length = 12)
-    private Long manuId;
+    private String manuId;
 	@Column(length = 100, columnDefinition = "nvarchar(100)")
     private String title;
 
