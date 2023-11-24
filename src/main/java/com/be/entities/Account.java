@@ -28,4 +28,10 @@ public class Account implements Serializable{
 	
 	@OneToOne(mappedBy = "account")
     private User users;
+
+	public Account(String username) {
+		this.username = username;
+	}
+	
+	
 }
