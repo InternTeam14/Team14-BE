@@ -17,7 +17,7 @@ import com.be.repository.ProductRepository;
 import com.be.service.ProductService;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 	@Autowired
 	ProductRepository productRepository;
 
@@ -175,6 +175,5 @@ public class ProductServiceImpl implements ProductService{
 	public <S extends Product> List<S> findAll(Example<S> example, Sort sort) {
 		return productRepository.findAll(example, sort);
 	}
-	
 	
 }
