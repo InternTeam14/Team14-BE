@@ -47,8 +47,8 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<Product> findAllById(Iterable<Long> ids) {
-		return productRepository.findAllById(ids);
+	public List<Product> findAllById(Iterable<String> ids) {
+		return null;
 	}
 
 	@Override
@@ -77,8 +77,8 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public Optional<Product> findById(Long id) {
-		return productRepository.findById(id);
+	public Optional<Product> findById(String id) {
+		return productRepository.findById(Long.valueOf(id));
 	}
 
 	@Override
@@ -87,14 +87,11 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public boolean existsById(Long id) {
-		return productRepository.existsById(id);
+	public boolean existsById(String id) {
+		return productRepository.existsById(Long.valueOf(id));
 	}
 
-	@Override
-	public <S extends Product> long count(Example<S> example) {
-		return productRepository.count(example);
-	}
+
 
 	@Override
 	public void deleteAllInBatch(Iterable<Product> entities) {
@@ -107,8 +104,8 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public void deleteAllByIdInBatch(Iterable<Long> ids) {
-		productRepository.deleteAllByIdInBatch(ids);
+	public void deleteAllByIdInBatch(Iterable<String> ids) {
+
 	}
 
 	@Override
@@ -116,10 +113,6 @@ public class ProductServiceImpl implements ProductService{
 		return productRepository.findBy(example, queryFunction);
 	}
 
-	@Override
-	public long count() {
-		return productRepository.count();
-	}
 
 	@Override
 	public void deleteAllInBatch() {
@@ -127,13 +120,13 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public void deleteById(Long id) {
-		productRepository.deleteById(id);
+	public void deleteById(String id) {
+		productRepository.deleteById(Long.valueOf(id));
 	}
 
 	@Override
-	public Product getOne(Long id) {
-		return productRepository.getOne(id);
+	public Product getOne(String id) {
+		return productRepository.getOne(Long.valueOf(id));
 	}
 
 	@Override
@@ -142,13 +135,13 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public Product getById(Long id) {
-		return productRepository.getById(id);
+	public Product getById(String id) {
+		return productRepository.getById(Long.valueOf(id));
 	}
 
 	@Override
-	public void deleteAllById(Iterable<? extends Long> ids) {
-		productRepository.deleteAllById(ids);
+	public void deleteAllById(Iterable<? extends String> ids) {
+
 	}
 
 	@Override
@@ -157,8 +150,8 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public Product getReferenceById(Long id) {
-		return productRepository.getReferenceById(id);
+	public Product getReferenceById(String id) {
+		return productRepository.getReferenceById(Long.valueOf(id));
 	}
 
 	@Override
@@ -174,6 +167,18 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public <S extends Product> List<S> findAll(Example<S> example, Sort sort) {
 		return productRepository.findAll(example, sort);
+	}
+
+	@Override
+	public String count() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <S extends Product> String count(Example<S> example) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

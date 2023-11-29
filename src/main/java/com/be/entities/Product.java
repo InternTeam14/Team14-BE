@@ -47,7 +47,5 @@ public class Product {
 	@ManyToOne
 	@JoinColumn(name = "cateId", referencedColumnName = "cateId")
 	private Category category;
-	@ManyToOne
-	@JoinColumn(name = "cartId", referencedColumnName = "cartId")
-	private Cart cart;
+	
 }
