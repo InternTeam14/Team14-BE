@@ -47,7 +47,7 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<Product> findAllById(Iterable<Long> ids) {
+	public List<Product> findAllById(Iterable<String> ids) {
 		return productRepository.findAllById(ids);
 	}
 
@@ -77,7 +77,7 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public Optional<Product> findById(Long id) {
+	public Optional<Product> findById(String id) {
 		return productRepository.findById(id);
 	}
 
@@ -87,14 +87,11 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public boolean existsById(Long id) {
+	public boolean existsById(String id) {
 		return productRepository.existsById(id);
 	}
 
-	@Override
-	public <S extends Product> long count(Example<S> example) {
-		return productRepository.count(example);
-	}
+
 
 	@Override
 	public void deleteAllInBatch(Iterable<Product> entities) {
@@ -107,7 +104,7 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public void deleteAllByIdInBatch(Iterable<Long> ids) {
+	public void deleteAllByIdInBatch(Iterable<String> ids) {
 		productRepository.deleteAllByIdInBatch(ids);
 	}
 
@@ -116,10 +113,6 @@ public class ProductServiceImpl implements ProductService{
 		return productRepository.findBy(example, queryFunction);
 	}
 
-	@Override
-	public long count() {
-		return productRepository.count();
-	}
 
 	@Override
 	public void deleteAllInBatch() {
@@ -127,12 +120,12 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(String id) {
 		productRepository.deleteById(id);
 	}
 
 	@Override
-	public Product getOne(Long id) {
+	public Product getOne(String id) {
 		return productRepository.getOne(id);
 	}
 
@@ -142,12 +135,12 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public Product getById(Long id) {
+	public Product getById(String id) {
 		return productRepository.getById(id);
 	}
 
 	@Override
-	public void deleteAllById(Iterable<? extends Long> ids) {
+	public void deleteAllById(Iterable<? extends String> ids) {
 		productRepository.deleteAllById(ids);
 	}
 
@@ -157,7 +150,7 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public Product getReferenceById(Long id) {
+	public Product getReferenceById(String id) {
 		return productRepository.getReferenceById(id);
 	}
 
@@ -174,6 +167,18 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public <S extends Product> List<S> findAll(Example<S> example, Sort sort) {
 		return productRepository.findAll(example, sort);
+	}
+
+	@Override
+	public String count() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <S extends Product> String count(Example<S> example) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
