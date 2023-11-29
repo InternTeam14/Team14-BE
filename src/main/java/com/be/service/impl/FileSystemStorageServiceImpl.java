@@ -33,6 +33,7 @@ public class FileSystemStorageServiceImpl implements StorageService {
 		return "p" + id + "." + ext;
 	}
 
+
 	public FileSystemStorageServiceImpl(StorageProperties properties) {
 		this.rootLocation = Paths.get(properties.getLocation());
 	}

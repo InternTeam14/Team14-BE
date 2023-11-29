@@ -52,11 +52,7 @@ public class ManagementProductController {
 	@Autowired
 	private ProductService productService;
 
-//	@Autowired
-//	CategoryService categoryService;
-//
-//	@Autowired
-//	CartService cartService;
+
 
 	@Autowired
 	private ManufacturerService manufacturerService;
@@ -65,7 +61,7 @@ public class ManagementProductController {
 	
 	
 	@Autowired
-	StorageService storageService;
+	private StorageService storageService;
 
 	@GetMapping("add")
 	public String add(Model model) {
