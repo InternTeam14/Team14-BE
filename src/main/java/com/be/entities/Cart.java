@@ -36,8 +36,6 @@ public class Cart implements Serializable {
     }
 	
 
-	@OneToMany(mappedBy = "cart")
-    private List<Product> products;
 
 	@ManyToOne
 	@JoinColumn(name = "userID", referencedColumnName = "userID")
