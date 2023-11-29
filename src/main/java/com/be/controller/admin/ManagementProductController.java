@@ -47,19 +47,19 @@ import com.be.utils.RamdomID;
 
 
 @Controller
-@RequestMapping("web/admin/managerproduct/")
+@RequestMapping("web/admin/product/")
 public class ManagementProductController {
 	@Autowired
-	ProductService productService;
+	private ProductService productService;
+
+//	@Autowired
+//	CategoryService categoryService;
+//
+//	@Autowired
+//	CartService cartService;
 
 	@Autowired
-	CategoryService categoryService;
-
-	@Autowired
-	CartService cartService;
-
-	@Autowired
-	ManufacturerService manufacturerService;
+	private ManufacturerService manufacturerService;
 	
 	
 	
@@ -85,7 +85,7 @@ public class ManagementProductController {
 	
 	@GetMapping("edit/{id}")
 	public ModelAndView edit(ModelMap model, @PathVariable("id") String productID) {
-		Optional<Product> opt = productService.findById(productID);
+		Optional<Product> opt = productService.findById(Long.valueOf(productID));
 		
 		ProductDTO dto = new ProductDTO();
 		if (opt.isPresent()) {
@@ -126,7 +126,7 @@ public class ManagementProductController {
 
 	@GetMapping("delete/{id}")
 	public ModelAndView delete(@PathVariable("productID") String id, ModelMap model) throws IOException {
-		Optional<Product> otp = productService.findById(id);
+		Optional<Product> otp = productService.findById(Long.valueOf(id));
 		if (otp.isPresent()) {
 			if(!StringUtils.isEmpty(otp.get().getImages())){
 				storageService.delete(otp.get().getImages());
@@ -177,7 +177,7 @@ public class ManagementProductController {
 		return new ModelAndView("forward:/adminUI/managementProduct", model);
 	}
 
-	@RequestMapping("")
+	@GetMapping("view")
 	public String list(ModelMap modelMap) {
 		List<Product> list = productService.findAll();
 		modelMap.addAttribute("products", list);

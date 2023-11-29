@@ -55,34 +55,28 @@ public class LoginController {
 		
 		 return RedirectHelper.redirectTo("/web/index");
 	}
-	
+
 	@PostMapping("pLogin")
-	public ModelAndView login(ModelMap model, 
-			@Valid @ModelAttribute("account") LoginDTO dto, BindingResult result) {
+	public ModelAndView login(ModelMap model,
+							  @Valid @ModelAttribute("account") LoginDTO dto, BindingResult result) {
 		if (result.hasErrors()) {
 			model.addAttribute("messL", "Sai dữ liệu, mời nhập lại");
 			return new ModelAndView("customerUI/login", model);
 		}
-		
+
 		Account account=accountService.login(dto.getUsername(), dto.getPassword());
 		if (account==null) {
 			model.addAttribute("messL", "Không tìm thấy thông tin đăng nhập");
 			return new ModelAndView("customerUI/login", model);
 		}
-		
+
 		session.setAttribute("username", account.getUsername());
 		session.setAttribute("role", account.getRole());
-		
-		 // Lấy đường dẫn trang trước đó từ session
-        String referer = (String) request.getSession().getAttribute("referer");
-        if (referer != null && !referer.isEmpty()) {
-            // Xóa thông tin đã lưu trong session
-            request.getSession().removeAttribute("referer");
-            // Chuyển hướng về trang trước đó
-            return new ModelAndView("redirect:" + referer);
-        }
-		
-		 return RedirectHelper.redirectTo("/web/index");
+
+
+		if (account.getRole().equals("user"))  return RedirectHelper.redirectTo("/web/index");
+
+		return RedirectHelper.redirectTo("/web/admin/manufacturer/view");
 	}
 
 	@PostMapping("/pRegister")
