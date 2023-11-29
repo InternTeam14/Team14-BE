@@ -20,39 +20,39 @@ public interface ProductService {
 
 	void deleteAll();
 
-	Product getReferenceById(Long id);
+	Product getReferenceById(String id);
 
 	void deleteAll(Iterable<? extends Product> entities);
 
-	void deleteAllById(Iterable<? extends Long> ids);
+	void deleteAllById(Iterable<? extends String> ids);
 
-	Product getById(Long id);
+	Product getById(String id);
 
 	void delete(Product entity);
 
-	Product getOne(Long id);
+	Product getOne(String id);
 
-	void deleteById(Long id);
+	void deleteById(String id);
 
 	void deleteAllInBatch();
 
-	long count();
+	String count();
 
 	<S extends Product, R> R findBy(Example<S> example, Function<FetchableFluentQuery<S>, R> queryFunction);
 
-	void deleteAllByIdInBatch(Iterable<Long> ids);
+	void deleteAllByIdInBatch(Iterable<String> ids);
 
 	<S extends Product> boolean exists(Example<S> example);
 
 	void deleteAllInBatch(Iterable<Product> entities);
 
-	<S extends Product> long count(Example<S> example);
+	<S extends Product> String count(Example<S> example);
 
-	boolean existsById(Long id);
+	boolean existsById(String id);
 
 	void deleteInBatch(Iterable<Product> entities);
 
-	Optional<Product> findById(Long id);
+	Optional<Product> findById(String id);
 
 	<S extends Product> Page<S> findAll(Example<S> example, Pageable pageable);
 
@@ -64,7 +64,7 @@ public interface ProductService {
 
 	<S extends Product> List<S> saveAll(Iterable<S> entities);
 
-	List<Product> findAllById(Iterable<Long> ids);
+	List<Product> findAllById(Iterable<String> ids);
 
 	List<Product> findAll(Sort sort);
 
