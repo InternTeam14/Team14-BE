@@ -8,7 +8,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
@@ -36,9 +35,9 @@ public class Cart implements Serializable {
     }
 	
 
-	@OneToMany(mappedBy = "cart")
-    private List<Product> products;
-
+	@ManyToOne
+	@JoinColumn(name = "productID", referencedColumnName = "productID")
+	private Product product;
 	@ManyToOne
 	@JoinColumn(name = "userID", referencedColumnName = "userID")
 	private User users;

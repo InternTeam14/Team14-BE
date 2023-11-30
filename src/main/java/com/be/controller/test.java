@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("index")
+@RequestMapping("web/index")
 public class test {
 	@GetMapping()
 	public String viewIndex(ModelMap model) {
 		
-		return "adminUI/managementManufacturer2";
+		return "customerUI/index";
 	}
 }

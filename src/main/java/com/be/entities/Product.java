@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,7 +23,7 @@ public class Product {
 	private String productID;
 	@Column(length = 100, columnDefinition = "nvarchar(100)")
     private String title;
-	@Column(columnDefinition = "nvarchar(500)")
+	@Column(columnDefinition = "nvarchar(5000)")
     private String description;
     private String config;
     private Double price;
@@ -40,6 +41,8 @@ public class Product {
     private List<Review> reviews;
 	@OneToMany(mappedBy = "product")
     private List<Comment> comments;
+	@OneToMany(mappedBy = "product")
+    private List<Cart> carts;
 
 	@ManyToOne
 	@JoinColumn(name = "manuId", referencedColumnName = "manuId")
@@ -47,7 +50,5 @@ public class Product {
 	@ManyToOne
 	@JoinColumn(name = "cateId", referencedColumnName = "cateId")
 	private Category category;
-	@ManyToOne
-	@JoinColumn(name = "cartId", referencedColumnName = "cartId")
-	private Cart cart;
+	
 }
