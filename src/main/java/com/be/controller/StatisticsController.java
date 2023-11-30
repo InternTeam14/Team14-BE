@@ -20,9 +20,6 @@ public class StatisticsController {
 	@Autowired
 	OrderService orderService;
 	
-	
-	
-	
 	@RequestMapping("list")
 	public String list(ModelMap modelMap) {
 		List<Order> list = orderService.listOrder();

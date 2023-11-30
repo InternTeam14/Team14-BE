@@ -20,8 +20,9 @@
     <script src="/assets/js/admin/management.js"></script>
 </head>
 
+
 <body>
-    <article>
+<aside>
         <div class="list-group list-tabs list-tabs-off" id="list-tabs-off">
             <a href="#" onclick="displayTabs()">
                 <i class="fa-solid fa-bars"></i>
@@ -54,66 +55,78 @@
                 <a href="#" class="list-group-item list-group-item-action">Đăng xuất</a>
             </div>
         </div>
-    </article>
+    </aside>
+		<main>
+			<div class="container box-main">
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item"><a class="nav-link active"
+						data-toggle="tab" href="#management-categories" role="tab"
+						aria-controls="management-categories" aria-selected="true">Quản
+							lý danh mục món</a></li>
 
-    <main>
-        <div class="container box-main">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#management-categories" role="tab"
-                        aria-controls="management-categories" aria-selected="true">Quản lý hãng</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#list-categories" role="tab"
-                        aria-controls="list-categories" aria-selected="false">Danh sách hãng</a></li>
-            </ul>
-            <div class="tab-content" id="myTabContent">
+					<li class="nav-item"><a class="nav-link" data-toggle="tab"
+						href="#list-categories" role="tab" aria-controls="list-categories"
+						aria-selected="false">Danh sách danh mục món</a></li>
+				</ul>
 
-                <div class="tab-pane fade show active" id="management-categories" role="tabpanel" aria-labelledby="home-tab">
-                    <form action="/web/admin/manufacturer/saveOrUpdate" method="post" class="card container form-management"
-                        enctype="multipart/form-data" th:object="${manu}">
-                            <div class="box-l">
-                            <!-- Message -->
-						<div th:if="${mess}" th:text="${mess}" class="alert alert-primary" role="alert"></div>
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="management-categories"
+						role="tabpanel" aria-labelledby="home-tab"> 
+						<div th:if="${messL}" th:text="${messL}" class="alert alert-primary" role="alert"></div>
+						<form th:action="@{/web/admin/category/save}" method="post" 
+							 class="card container form-management" th:object="${category}"> 
+							<div class="box-l">
 
                           <input type="hidden" th:field="*{isEdit}" name="isEdit" >
-                                <label for="manuID" >ID hãng </label>
-                                <input th:field="*{manuId}" name="manuID" readonly type="text" id="manuID" class="form-control" >
-                                <label for="manuName">Tên hãng</label>
-                                <input th:field="*{title}" name="title" type="text" id="manuName" class="form-control">
-                                
-                            </div>
+                          <label for="cateId">Id:</label>
+                          <input type="text" class="form-control" id="cateId" placeholder="ID Danh mục"
+                          readonly th:field="*{cateId}" name="cateId" >
+									<label for="name">Tên danh mục</label> 
+									<input type="text" id="name" th:field="*{title}"
+									class="form-control" name="title">
+									</div>
 
-                        <div class="box-btn">
-								<button class="btn btn-info" th:text="${manu.isEdit ? 'Cập nhật' : 'Lưu'}"></button>
-								<a><button th:if="${manu.isEdit==false}" type="reset" class="btn btn-primary" >Đặt lại</button></a>
-								<a style="background-color:#ED1D24" th:if="${manu.isEdit==true}" type="button" class="btn btn-primary" th:href="@{'/web/admin/manufacturer/delete/' + ${manu.manuId}}">Delete</a>
+							<div class="box-btn">
+
+								<button class="btn btn-info" th:text="${category.isEdit? 'Update' : 'Save'}">Save</button>
+								<a><button th:if="${category.isEdit==false}" type="reset" class="btn btn-primary" >Reset</button></a>
+								<a th:if="${category.isEdit==true}" type="button" class="btn btn-primary" th:href="@{/tfive/admin/category/view}">Reset</a>
+								<a style="background-color:#ED1D24" th:if="${category.isEdit==true}" type="button" class="btn btn-primary" th:href="@{'/tfive/admin/category/delete/' + ${category.cateId}}">Delete</a>
+
+							</div>
+						</form>
 					</div>
-                    </form>
-                </div>
 
-                <div class="tab-pane fade" id="list-categories" role="tabpanel" aria-labelledby="profile-tab">
-                    <table class="table tbl-cart">
-                        <thead class="thead-light">
-                            <tr>
-                                <th scope="col">ID Hãng</th>
-                                <th scope="col">Tên hãng</th>
-                                <th scope="col">Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="item : ${manus}">
-                                <td scope="row" th:text="${item.manuId}">H-123</td>
-                                <td scope="row" th:text="${item.title}">Apple</td>
-                                <td><a class="edit" th:href="@{'/web/admin/manufacturer/edit/'+${item.manuId}}">Edit</a>
-                                    | <a th:href="@{'/web/admin/manufacturer/delete/'+${item.manuId}}">Delete</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+					<div class="tab-pane fade" id="list-categories" role="tabpanel"
+						aria-labelledby="profile-tab">
+						<table class="table tbl-cart">
+							<thead class="thead-light">
+								<tr>
+									<th scope="col">ID Món</th>
+									<th scope="col">Tên danh mục</th>
+									<th scope="col">Thao tác</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="item : ${categories}">
+									<td scope="row" th:text="${item.cateId}"></td>
+									<td scope="row" th:text="${item.title}"></td>
+									<td><a class="edit" th:href="@{'/tfive/admin/category/edit/' + ${item.cateId}}">Edit</a> 
+									| <a th:href="@{'/tfive/admin/category/delete/' + ${item.cateId}}">Delete</a>
+									</td>
+								</tr>
+							</tbody>
+						
+						</table>
 
-        </div>
 
-    </main>
+					</div>
+				</div>
+
+			</div>
+
+		</main>
+
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

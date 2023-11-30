@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -40,6 +41,8 @@ public class Product {
     private List<Review> reviews;
 	@OneToMany(mappedBy = "product")
     private List<Comment> comments;
+	@OneToMany(mappedBy = "product")
+    private List<Cart> carts;
 
 	@ManyToOne
 	@JoinColumn(name = "manuId", referencedColumnName = "manuId")
