@@ -78,7 +78,7 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public Optional<Product> findById(String id) {
-		return productRepository.findById(Long.valueOf(id));
+		return productRepository.findById(id);
 	}
 
 	@Override
@@ -88,7 +88,7 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public boolean existsById(String id) {
-		return productRepository.existsById(Long.valueOf(id));
+		return productRepository.existsById(id);
 	}
 
 
@@ -121,12 +121,12 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public void deleteById(String id) {
-		productRepository.deleteById(Long.valueOf(id));
+		productRepository.deleteById(id);
 	}
 
 	@Override
 	public Product getOne(String id) {
-		return productRepository.getOne(Long.valueOf(id));
+		return productRepository.getOne(id);
 	}
 
 	@Override
@@ -136,7 +136,7 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public Product getById(String id) {
-		return productRepository.getById(Long.valueOf(id));
+		return productRepository.getById(id);
 	}
 
 	@Override
@@ -151,7 +151,7 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public Product getReferenceById(String id) {
-		return productRepository.getReferenceById(Long.valueOf(id));
+		return productRepository.getReferenceById(id);
 	}
 
 	@Override
