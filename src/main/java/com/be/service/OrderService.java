@@ -82,4 +82,6 @@ public interface OrderService {
 
 	List<Order> findByUsername(String username);
 
+	List<Order> getAll();
+
 }

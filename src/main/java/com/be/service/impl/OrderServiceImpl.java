@@ -201,5 +201,11 @@ public class OrderServiceImpl implements OrderService{
 	
 		return orderRepository.findByOrderId(id);
 	}
+
+	@Override
+	public List<Order> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
