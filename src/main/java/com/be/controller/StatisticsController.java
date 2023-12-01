@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.be.entities.Order;
 import com.be.entities.Product;
+import com.be.repository.OrderDetailRepository;
+import com.be.service.OrderDetailService;
 import com.be.service.OrderService;
 import com.be.service.ProductService;
 
@@ -20,29 +22,28 @@ public class StatisticsController {
 	@Autowired
 	OrderService orderService;
 	
-	
+	@Autowired
+	OrderDetailService detailService;
 	
 	
 	@RequestMapping("list")
 	public String list(ModelMap modelMap) {
-		List<Order> list = orderService.listOrder();
-		modelMap.addAttribute("orders", list);
-		return "adminUI/statitics";
+		Long countTotalUser = orderService.countTotalUser();
+		modelMap.addAttribute("countTotalUser", countTotalUser);
+		Long countTotalOrder = orderService.countTotalOrder();
+		modelMap.addAttribute("countTotalOrder", countTotalOrder);
+		
+		Long countTotalQuantity = detailService.countTotatlQuantityOfProduct();
+		modelMap.addAttribute("countTotalQuantity", countTotalQuantity);
+		
+		Long countTotalAmount = detailService.countTotatlAmountOfProduct();
+		modelMap.addAttribute("countTotalAmount", countTotalAmount);
+		return "adminUI/statistics";
 	}
 	
 	@RequestMapping("")
 	public String list1(ModelMap modelMap) {
-		Long total = orderService.countTotalOrder();
-		modelMap.addAttribute("countTotalOrder",total);
-		Long total2 = orderService.countTotalUserByPrduct();
-		modelMap.addAttribute("countTotalUserByProduct",total2);
 		
-		Long total3 = orderService.totalQuantitySell();
-		modelMap.addAttribute("totalQuantitySell",total3);
-		
-		
-		Long tota4 = orderService.totalOrderAmountSell();
-		modelMap.addAttribute("countTotalPrice",tota4);
-		return "adminUI/statitics";
+		return "adminUI/statistics";
 	}
 }
