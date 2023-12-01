@@ -79,10 +79,7 @@ public class OrderServiceImpl implements OrderService{
 		return orderRepository.findAll(example, pageable);
 	}
 
-	@Override
-	public Optional<Order> findById(Long id) {
-		return orderRepository.findById(id);
-	}
+	
 
 	
 
@@ -192,6 +189,17 @@ public class OrderServiceImpl implements OrderService{
 	public <S extends Order> List<S> saveAll(Iterable<S> entities) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public List<Order> findByUsername(String username) {
+		
+		return orderRepository.findByUsername(username);
+	}
+
+	@Override
+	public Order findById(Long id) {
+	
+		return orderRepository.findByOrderId(id);
 	}
 	
 }
