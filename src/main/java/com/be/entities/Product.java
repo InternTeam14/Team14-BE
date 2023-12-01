@@ -23,7 +23,7 @@ public class Product {
 	private String productID;
 	@Column(length = 100, columnDefinition = "nvarchar(100)")
     private String title;
-	@Column(columnDefinition = "nvarchar(500)")
+	@Column(columnDefinition = "nvarchar(5000)")
     private String description;
     private String config;
     private Double price;

@@ -46,8 +46,8 @@
                 </a>
                 <div class="collapse" id="subTabDish">
                     <a href="qltheloai2.html" class="list-group-item list-group-item-action sub-tabs">Quản lý danh mục</a>
-                    <a href="#" class="list-group-item list-group-item-action sub-tabs">Quản lý hãng</a>
-                    <a href="managementProduct.html" class="list-group-item list-group-item-action sub-tabs">Quản lý sản phẩm</a>
+                    <a th:href="@{'/web/admin/manufacturer/view'}" class="list-group-item list-group-item-action sub-tabs">Quản lý hãng</a>
+                    <a th:href="@{'/web/admin/product/add'}" class="list-group-item list-group-item-action sub-tabs">Quản lý sản phẩm</a>
                 </div>
                 <a href="management_Oder.html" class="list-group-item list-group-item-action">Quản lý đơn hàng</a>
                 <a href="managementCustomer.html" class="list-group-item list-group-item-action">Quản lý khách hàng</a>
@@ -62,11 +62,11 @@
 					<li class="nav-item"><a class="nav-link active"
 						data-toggle="tab" href="#management-categories" role="tab"
 						aria-controls="management-categories" aria-selected="true">Quản
-							lý danh mục món</a></li>
+							lý danh mục </a></li>
 
 					<li class="nav-item"><a class="nav-link" data-toggle="tab"
 						href="#list-categories" role="tab" aria-controls="list-categories"
-						aria-selected="false">Danh sách danh mục món</a></li>
+						aria-selected="false">Danh sách danh mục </a></li>
 				</ul>
 
 				<div class="tab-content" id="myTabContent">
@@ -90,8 +90,8 @@
 
 								<button class="btn btn-info" th:text="${category.isEdit? 'Update' : 'Save'}">Save</button>
 								<a><button th:if="${category.isEdit==false}" type="reset" class="btn btn-primary" >Reset</button></a>
-								<a th:if="${category.isEdit==true}" type="button" class="btn btn-primary" th:href="@{/tfive/admin/category/view}">Reset</a>
-								<a style="background-color:#ED1D24" th:if="${category.isEdit==true}" type="button" class="btn btn-primary" th:href="@{'/tfive/admin/category/delete/' + ${category.cateId}}">Delete</a>
+								<a th:if="${category.isEdit==true}" type="button" class="btn btn-primary" th:href="@{/web/admin/category/view}">Reset</a>
+								<a style="background-color:#ED1D24" th:if="${category.isEdit==true}" type="button" class="btn btn-primary" th:href="@{'/web/admin/category/delete/' + ${category.cateId}}">Delete</a>
 
 							</div>
 						</form>
