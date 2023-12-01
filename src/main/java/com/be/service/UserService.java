@@ -10,9 +10,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 
+import com.be.entities.Account;
 import com.be.entities.User;
 
 public interface UserService {
+	
+	public Optional<User> findUserByAccount(Account account);
 
 	List<User> findByFullnameContaining(String name);
 

@@ -27,6 +27,9 @@ public class Order {
     private String orderStatus;
     private Double totalAmount;
     private Integer totalQuantity;
+    private String fullName;
+    private String phone;
+    private String address;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date orderDate;

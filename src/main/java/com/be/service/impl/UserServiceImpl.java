@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 import org.springframework.stereotype.Repository;
 
+import com.be.entities.Account;
 import com.be.entities.User;
 import com.be.repository.UserRepository;
 import com.be.service.UserService;
@@ -185,6 +186,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public <S extends User> List<S> findAll(Example<S> example, Sort sort) {
 		return userRepository.findAll(example, sort);
+	}
+
+	@Override
+	public Optional<User> findUserByAccount(Account account) {
+		Optional<User> user = userRepository.findUserByAccount(account);
+		return user;
 	}
 
 }

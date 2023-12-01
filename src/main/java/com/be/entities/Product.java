@@ -22,27 +22,26 @@ public class Product {
 	@Column(length = 12)
 	private String productID;
 	@Column(length = 100, columnDefinition = "nvarchar(100)")
-    private String title;
+	private String title;
 	@Column(columnDefinition = "nvarchar(5000)")
-    private String description;
-    private String config;
-    private Double price;
-    private Double discountPrice;
-    private String images;
-    private Boolean active;
-    private Integer quantity;
-    
+	private String description;
+	private String config;
+	private Double price;
+	private Double discountPrice;
+	private String images;
+	private Boolean active;
+	private Integer quantity;
 
 	@OneToMany(mappedBy = "product")
-    private List<Product_Image> product_Images;
+	private List<Product_Image> product_Images;
 	@OneToMany(mappedBy = "product")
-    private List<OrderDetail> orderDetails;
+	private List<OrderDetail> orderDetails;
 	@OneToMany(mappedBy = "product")
-    private List<Review> reviews;
+	private List<Review> reviews;
 	@OneToMany(mappedBy = "product")
-    private List<Comment> comments;
+	private List<Comment> comments;
 	@OneToMany(mappedBy = "product")
-    private List<Cart> carts;
+	private List<Cart> carts;
 
 	@ManyToOne
 	@JoinColumn(name = "manuId", referencedColumnName = "manuId")
@@ -50,5 +49,5 @@ public class Product {
 	@ManyToOne
 	@JoinColumn(name = "cateId", referencedColumnName = "cateId")
 	private Category category;
-	
+
 }
