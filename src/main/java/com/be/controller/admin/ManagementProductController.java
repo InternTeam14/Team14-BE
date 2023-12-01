@@ -56,7 +56,7 @@ public class ManagementProductController {
 		List<Product> list = productService.findAll();
 		model.addAttribute("produtss", list);
 	}
-	
+
 	@ModelAttribute("manus") // lựa chọn danh mục
 	public List<ManufacturerDTO> getDtos() {
 		return manufacturerService.findAll().stream().map(item -> {
@@ -65,7 +65,6 @@ public class ManagementProductController {
 			return dto;
 		}).collect(Collectors.toList());
 	}
-	
 
 	@ModelAttribute("categories") // lựa chọn danh mục
 	public List<CategoryDTO> getCategories() {
@@ -111,63 +110,35 @@ public class ManagementProductController {
 			model.addAttribute("product", dto);
 
 			return new ModelAndView("adminUI/managementProduct", model);
-			
+
 		}
 		model.addAttribute("mess", "Dish is not existed");
 
 		return RedirectHelper.redirectTo("/web/admin/product/add");
-//		Optional<Product> customer = productService.findById(productID);
-//		ProductDTO customerModel = new ProductDTO();
-//		if (customer.isPresent()) {
-//			Product product = customer.get();
-//			List<Category> list = categotyService.findAll();
-//			modelMap.addAttribute("categories", list);
-//			List<Manufacturer> listq = manufacturerService.findAll();
-//			modelMap.addAttribute("manus", list);
-//			BeanUtils.copyProperties(product, customerModel);
-//			customerModel.setCateId(product.getCategory().getCateId());
-//			customerModel.setManuId(product.getManufacturer().getManuId());
-//			customerModel.setIsEdit(true);
-//			List<Category> lists = categotyService.findAll();
-//			modelMap.addAttribute("categories", lists);
-//			modelMap.addAttribute("product", customerModel);
-//
-//			modelMap.addAttribute("productID", customerModel);
-//			return RedirectHelper.redirectTo("/web/admin/product/add");
-//
-//		}
-//		modelMap.addAttribute("message", "Không tìm thấy");
-//		return RedirectHelper.redirectTo("/web/admin/product/add");
-
 	}
 
 	@PostMapping("/saveOrUpdate")
-	public ModelAndView save(ModelMap modelMap, @ModelAttribute("order") ProductDTO productModel) {
+	public ModelAndView save(ModelMap modelMap, @ModelAttribute("order") ProductDTO dto) {
 		List<Category> list = categotyService.findAll();
 		modelMap.addAttribute("categories", list);
 
 		Product entity = new Product();
 		Category customer = new Category();
 		Manufacturer manufacturer = new Manufacturer();
-		BeanUtils.copyProperties(productModel, entity);
-		customer.setCateId(productModel.getCateId());
-		manufacturer.setManuId(productModel.getManuId());
-		if (!productModel.getImgFile().isEmpty()) {
+		BeanUtils.copyProperties(dto, entity);
+		customer.setCateId(dto.getCateId());
+		manufacturer.setManuId(dto.getManuId());
+
+		if (!dto.getImgFile().isEmpty()) {
 			UUID uuid = UUID.randomUUID();
 			String uuString = uuid.toString();
-
-			entity.setImages(storageService.getStoreFilename(productModel.getImgFile(), uuString));
-			storageService.store(productModel.getImgFile(), entity.getImages());
+			entity.setImages(storageService.getStoredFileName(dto.getImgFile(), uuString));
+			storageService.storeResizedImage(dto.getImgFile(), entity.getImages(), 209, 171);
 		}
-		productModel.setIsEdit(true);
-//		List<Category> lists = categotyService.findAll();
-//		modelMap.addAttribute("categories", lists);
+		dto.setIsEdit(true);
 		entity.setCategory(customer);
 		entity.setManufacturer(manufacturer);
 
-//		List<Manufacturer> listq = manufacturerService.findAll();
-//		modelMap.addAttribute("manus", listq);
-		
 		productService.save(entity);
 		modelMap.addAttribute("message", "Thành công");
 
