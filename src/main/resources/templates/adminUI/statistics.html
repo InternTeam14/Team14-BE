@@ -106,7 +106,7 @@
 									<div
 										class="border-primary border rounded text-center py-3 mb-3">
 										<h5 class="card-title text-primary mb-1"
-											th:text="${countTotalPrice} + .VND">1.000.000.000 VNĐ</h5>
+											th:text="${countTotalQuantity}*${countTotalAmount} + .VND">1.000.000.000 VNĐ</h5>
 										<p class="text-primary mb-0">Tổng tiền</p>
 									</div>
 									<div
@@ -120,7 +120,7 @@
 								<div class="col-6 col-lg-6">
 									<div class="border-danger border rounded text-center py-3 mb-3">
 										<h5 class="card-title text-danger mb-1"
-											th:text="${countTotalUserByProduct}">1.000.000.000 VNĐ</h5>
+											th:text="${countTotalUser}">1.000.000.000 VNĐ</h5>
 										<p class="text-danger mb-0">Số lượng khách đã mua hàng</p>
 									</div>
 									<div
@@ -141,21 +141,21 @@
 						<table id="exportTable" class="table table-hover">
 							<thead>
 								<tr>
-
+									<th>Số lượng người mua hàng</th>
 									<th>Số lượng đơn hàng</th>
-									<th>Tổng số lượng người mua hàng</th>
+									
 									<th>Số lượng sản phẩm bán ra</th>
 									<th>Doanh thu</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-
+									<td th:text="${countTotalUser}"></td>
 									<td th:text="${countTotalOrder}"></td>
-									<td th:text="${countTotalUserByProduct}"></td>
+								
+								
 									<td th:text="${countTotalQuantity}"></td>
-									
-									<td th:text="${countTotalQuantity} * ${countTotalPrice}"></td>
+									<td th:text="${countTotalAmount}"></td>
 									
 
 
