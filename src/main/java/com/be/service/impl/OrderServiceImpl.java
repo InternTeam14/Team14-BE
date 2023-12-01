@@ -16,8 +16,9 @@ import org.springframework.stereotype.Service;
 import com.be.entities.Order;
 import com.be.repository.OrderRepository;
 import com.be.service.OrderService;
+
 @Service
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl implements OrderService{
 	@Autowired
 	OrderRepository orderRepository;
 
@@ -25,7 +26,16 @@ public class OrderServiceImpl implements OrderService {
 	public <S extends Order> S save(S entity) {
 		return orderRepository.save(entity);
 	}
-
+	
+	@Override
+	public Long countTotalOrder() {
+		return orderRepository.countTotalOrder();
+	}
+	
+	@Override
+	public Long countTotalUser() {
+		return orderRepository.countTotalUser();
+	}
 	@Override
 	public <S extends Order> Optional<S> findOne(Example<S> example) {
 		return orderRepository.findOne(example);
@@ -51,10 +61,6 @@ public class OrderServiceImpl implements OrderService {
 		return orderRepository.findAllById(ids);
 	}
 
-	@Override
-	public <S extends Order> List<S> saveAll(Iterable<S> entities) {
-		return orderRepository.saveAll(entities);
-	}
 
 	@Override
 	public void flush() {
@@ -66,25 +72,16 @@ public class OrderServiceImpl implements OrderService {
 		return orderRepository.saveAndFlush(entity);
 	}
 
-	@Override
-	public <S extends Order> List<S> saveAllAndFlush(Iterable<S> entities) {
-		return orderRepository.saveAllAndFlush(entities);
-	}
+	
 
 	@Override
 	public <S extends Order> Page<S> findAll(Example<S> example, Pageable pageable) {
 		return orderRepository.findAll(example, pageable);
 	}
 
-	@Override
-	public Optional<Order> findById(Long id) {
-		return orderRepository.findById(id);
-	}
+	
 
-	@Override
-	public void deleteInBatch(Iterable<Order> entities) {
-		orderRepository.deleteInBatch(entities);
-	}
+	
 
 	@Override
 	public boolean existsById(Long id) {
@@ -96,10 +93,7 @@ public class OrderServiceImpl implements OrderService {
 		return orderRepository.count(example);
 	}
 
-	@Override
-	public void deleteAllInBatch(Iterable<Order> entities) {
-		orderRepository.deleteAllInBatch(entities);
-	}
+	
 
 	@Override
 	public <S extends Order> boolean exists(Example<S> example) {
@@ -151,10 +145,7 @@ public class OrderServiceImpl implements OrderService {
 		orderRepository.deleteAllById(ids);
 	}
 
-	@Override
-	public void deleteAll(Iterable<? extends Order> entities) {
-		orderRepository.deleteAll(entities);
-	}
+	
 
 	@Override
 	public Order getReferenceById(Long id) {
@@ -175,30 +166,40 @@ public class OrderServiceImpl implements OrderService {
 	public <S extends Order> List<S> findAll(Example<S> example, Sort sort) {
 		return orderRepository.findAll(example, sort);
 	}
-	
-	
+
 	@Override
-	public Long countTotalOrder() {
+	public void deleteAllInBatch(Iterable<Order> entities) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteInBatch(Iterable<Order> entities) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public <S extends Order> List<S> saveAllAndFlush(Iterable<S> entities) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Order> listOrder() {
-		return null;}
-
-	@Override
-	public Long countTotalUserByPrduct() {
+	public <S extends Order> List<S> saveAll(Iterable<S> entities) {
+		// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public List<Order> findByUsername(String username) {
+		
+		return orderRepository.findByUsername(username);
 	}
 
 	@Override
-	public Long totalQuantitySell() {
-		return null;
-	}
+	public Order findById(Long id) {
 	
-	@Override
-	public Long totalOrderAmountSell() {
-		return null;
+		return orderRepository.findByOrderId(id);
 	}
 	
 }

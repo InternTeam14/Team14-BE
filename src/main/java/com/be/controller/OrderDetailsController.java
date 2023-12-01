@@ -6,17 +6,21 @@ import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.be.entities.Order;
 import com.be.entities.OrderDetail;
 
 import com.be.service.OrderDetailService;
 import com.be.service.OrderService;
 import com.be.service.ProductService;
+
+
 
 
 
@@ -32,23 +36,21 @@ public class OrderDetailsController {
 	@Autowired
 	OrderService orderService;
 	
-	@RequestMapping("")
-	public String list(ModelMap modelMap) {
-		List<OrderDetail> list = detailService.findAll();
-		modelMap.addAttribute("orderDetails",list);
-		return "customerUI/orderDetails";
-	}
-	
-	@GetMapping("orderDetails/{order_detail_id}")
-	public ModelAndView view(ModelMap model,@PathVariable("order_detail_id") Long orderDetailId) {
-		Optional<OrderDetail> opt = detailService.findById(orderDetailId);
+	 @RequestMapping("list")
+	 public String list(Model model, javax.servlet.http.HttpServletRequest request) {
+		 String username = request.getRemoteUser();
+		 model.addAttribute("orders", orderService.findByUsername(username));
 		
-			
-		
-			OrderDetail enCategory = opt.get();
-							
-			model.addAttribute("orderDetail",enCategory);
-			return new ModelAndView("customerUI/orderDetails",model);
-	
-	}	
+		 return "customerUI/orderDetail";
+	 }
+	 
+	 
+	 
+	  @RequestMapping("detail/{orderId}")
+	    public String detail(@PathVariable("orderId") Long id, Model model) {
+	        Order order = orderService.findById(id);
+	        model.addAttribute("order", order);
+	        model.addAttribute("orderDetails", order.getOrderDetails()); // Thêm orderDetails vào model
+	        return "customerUI/orderDetails";
+	    }	
 }

@@ -5,6 +5,7 @@ import javax.persistence.Id;
 
 import org.springframework.beans.propertyeditors.InputSourceEditor;
 import org.springframework.web.multipart.MultipartFile;
+import java.io.Serializable;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,4 +31,5 @@ public class ProductDTO {
     private MultipartFile imgFile;
     
     
+	
 }

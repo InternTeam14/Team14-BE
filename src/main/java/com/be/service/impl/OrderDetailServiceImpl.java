@@ -12,170 +12,184 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 import org.springframework.stereotype.Service;
 
-import com.be.entities.Order;
 import com.be.entities.OrderDetail;
-import com.be.repository.OrderDetailsRepository;
+import com.be.repository.OrderDetailRepository;
 import com.be.service.OrderDetailService;
+
 @Service
 public class OrderDetailServiceImpl implements OrderDetailService {
 	@Autowired
-	OrderDetailsRepository detailsRepository;
+	OrderDetailRepository detailRepository;
 
 	@Override
 	public <S extends OrderDetail> S save(S entity) {
-		return detailsRepository.save(entity);
+		return detailRepository.save(entity);
 	}
-
+	
+	@Override
+	public Long countTotatlProductSell() {
+		return detailRepository.countTotatlProductSell();
+	}
+	@Override
+	public Long countTotatlAmountOfProduct() {
+		return detailRepository.countTotatlAmountOfProduct();
+	}
+	@Override
+	public Long countTotatlQuantityOfProduct() {
+		return detailRepository.countTotatlQuantityOfProduct();
+	}
 	@Override
 	public <S extends OrderDetail> Optional<S> findOne(Example<S> example) {
-		return detailsRepository.findOne(example);
+		return detailRepository.findOne(example);
 	}
 
 	@Override
 	public List<OrderDetail> findAll() {
-		return detailsRepository.findAll();
+		return detailRepository.findAll();
 	}
 
 	@Override
 	public Page<OrderDetail> findAll(Pageable pageable) {
-		return detailsRepository.findAll(pageable);
+		return detailRepository.findAll(pageable);
 	}
 
 	@Override
 	public List<OrderDetail> findAll(Sort sort) {
-		return detailsRepository.findAll(sort);
+		return detailRepository.findAll(sort);
 	}
 
 	@Override
 	public List<OrderDetail> findAllById(Iterable<Long> ids) {
-		return detailsRepository.findAllById(ids);
+		return detailRepository.findAllById(ids);
+	}
+
+	@Override
+	public List<OrderDetail> listProductSell() {
+		return detailRepository.listProductSell();
 	}
 
 	@Override
 	public <S extends OrderDetail> List<S> saveAll(Iterable<S> entities) {
-		return detailsRepository.saveAll(entities);
+		return detailRepository.saveAll(entities);
 	}
 
 	@Override
 	public void flush() {
-		detailsRepository.flush();
+		detailRepository.flush();
 	}
 
 	@Override
 	public <S extends OrderDetail> S saveAndFlush(S entity) {
-		return detailsRepository.saveAndFlush(entity);
+		return detailRepository.saveAndFlush(entity);
 	}
 
 	@Override
 	public <S extends OrderDetail> List<S> saveAllAndFlush(Iterable<S> entities) {
-		return detailsRepository.saveAllAndFlush(entities);
+		return detailRepository.saveAllAndFlush(entities);
 	}
 
 	@Override
 	public <S extends OrderDetail> Page<S> findAll(Example<S> example, Pageable pageable) {
-		return detailsRepository.findAll(example, pageable);
+		return detailRepository.findAll(example, pageable);
 	}
 
 	@Override
 	public Optional<OrderDetail> findById(Long id) {
-		return detailsRepository.findById(id);
+		return detailRepository.findById(id);
 	}
 
 	@Override
 	public void deleteInBatch(Iterable<OrderDetail> entities) {
-		detailsRepository.deleteInBatch(entities);
+		detailRepository.deleteInBatch(entities);
 	}
 
 	@Override
 	public boolean existsById(Long id) {
-		return detailsRepository.existsById(id);
+		return detailRepository.existsById(id);
 	}
 
 	@Override
 	public <S extends OrderDetail> long count(Example<S> example) {
-		return detailsRepository.count(example);
+		return detailRepository.count(example);
 	}
 
 	@Override
 	public void deleteAllInBatch(Iterable<OrderDetail> entities) {
-		detailsRepository.deleteAllInBatch(entities);
+		detailRepository.deleteAllInBatch(entities);
 	}
 
 	@Override
 	public <S extends OrderDetail> boolean exists(Example<S> example) {
-		return detailsRepository.exists(example);
+		return detailRepository.exists(example);
 	}
 
 	@Override
 	public void deleteAllByIdInBatch(Iterable<Long> ids) {
-		detailsRepository.deleteAllByIdInBatch(ids);
+		detailRepository.deleteAllByIdInBatch(ids);
 	}
 
 	@Override
 	public <S extends OrderDetail, R> R findBy(Example<S> example, Function<FetchableFluentQuery<S>, R> queryFunction) {
-		return detailsRepository.findBy(example, queryFunction);
+		return detailRepository.findBy(example, queryFunction);
 	}
 
 	@Override
 	public long count() {
-		return detailsRepository.count();
+		return detailRepository.count();
 	}
 
 	@Override
 	public void deleteAllInBatch() {
-		detailsRepository.deleteAllInBatch();
+		detailRepository.deleteAllInBatch();
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		detailsRepository.deleteById(id);
+		detailRepository.deleteById(id);
 	}
 
 	@Override
 	public OrderDetail getOne(Long id) {
-		return detailsRepository.getOne(id);
+		return detailRepository.getOne(id);
 	}
 
 	@Override
 	public void delete(OrderDetail entity) {
-		detailsRepository.delete(entity);
+		detailRepository.delete(entity);
 	}
 
 	@Override
 	public OrderDetail getById(Long id) {
-		return detailsRepository.getById(id);
+		return detailRepository.getById(id);
 	}
 
 	@Override
 	public void deleteAllById(Iterable<? extends Long> ids) {
-		detailsRepository.deleteAllById(ids);
+		detailRepository.deleteAllById(ids);
 	}
 
 	@Override
 	public void deleteAll(Iterable<? extends OrderDetail> entities) {
-		detailsRepository.deleteAll(entities);
+		detailRepository.deleteAll(entities);
 	}
 
 	@Override
 	public OrderDetail getReferenceById(Long id) {
-		return detailsRepository.getReferenceById(id);
+		return detailRepository.getReferenceById(id);
 	}
 
 	@Override
 	public void deleteAll() {
-		detailsRepository.deleteAll();
+		detailRepository.deleteAll();
 	}
 
 	@Override
 	public <S extends OrderDetail> List<S> findAll(Example<S> example) {
-		return detailsRepository.findAll(example);
+		return detailRepository.findAll(example);
 	}
 
 	@Override
 	public <S extends OrderDetail> List<S> findAll(Example<S> example, Sort sort) {
-		return detailsRepository.findAll(example, sort);
+		return detailRepository.findAll(example, sort);
 	}
-
-	
-	
 }
