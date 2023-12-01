@@ -111,8 +111,8 @@
 								<tr th:each="item : ${categories}">
 									<td scope="row" th:text="${item.cateId}"></td>
 									<td scope="row" th:text="${item.title}"></td>
-									<td><a class="edit" th:href="@{'/tfive/admin/category/edit/' + ${item.cateId}}">Edit</a> 
-									| <a th:href="@{'/tfive/admin/category/delete/' + ${item.cateId}}">Delete</a>
+									<td><a class="edit" th:href="@{'/web/admin/category/edit/' + ${item.cateId}}">Edit</a> 
+									| <a th:href="@{'/web/admin/category/delete/' + ${item.cateId}}">Delete</a>
 									</td>
 								</tr>
 							</tbody>
