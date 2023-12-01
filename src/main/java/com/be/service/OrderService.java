@@ -52,7 +52,7 @@ public interface OrderService {
 
 	void deleteInBatch(Iterable<Order> entities);
 
-	Optional<Order> findById(Long id);
+	Order findById(Long id);
 
 	<S extends Order> Page<S> findAll(Example<S> example, Pageable pageable);
 
@@ -79,5 +79,7 @@ public interface OrderService {
 	Long countTotalUser();
 
 	Long countTotalOrder();
+
+	List<Order> findByUsername(String username);
 
 }
