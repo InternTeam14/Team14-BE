@@ -2,6 +2,7 @@ package com.be.dto;
 
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -16,13 +17,13 @@ import lombok.Setter;
 @Setter
 public class OrderRequestDto {
 
-	@Size(min = 1, max = 70,message="Full Name cannot be empty and exceed 70 characters")
+	@Size(min = 1, max = 70,message="Họ và tên không được để trống!")
 	private String fullName;
 	
-	@Pattern(regexp = "^(\\d{10}|\\d{12})$", message = "Phone can not empty and should be between 10 to 12 digits")
+	@Pattern(regexp = "^(\\d{10}|\\d{12})$", message = "Số điện thoại không được để trống và từ 10 - 12 số!!")
 	private String phone;
 	
-	@Size(min=1, max = 100,message="Address must not exceed 100 characters")
+	@NotBlank(message = "Địa chỉ không được để trống")
 	private String address;
 	
 	@Size(min=0, max = 500,message="Note must not exceed 500 characters")
