@@ -17,6 +17,6 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> 
 	@Query("SELECT COUNT(o.quantity) FROM OrderDetail o")
 	public Long countTotatlQuantityOfProduct();
 	
-	@Query("SELECT o FROM OrderDetail o GROUP BY o.orders.orderId")
+	@Query("SELECT o FROM OrderDetail o GROUP BY o.orders.orderId,o.product.productID")
 	public List<OrderDetail> listProductSell();
 }

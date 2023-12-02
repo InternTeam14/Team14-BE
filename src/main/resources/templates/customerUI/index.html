@@ -802,7 +802,7 @@
                                                 
                                             </div>
                                             <div class="product__card--content">
-                                                <h3 class="product__card--title"><a href="productDetails.html" th:href="@{'/web/product/detail/'+${product.productID}}"> Sản phẩm 1</a></h3>
+                                                <h3 class="product__card--title"><a href="productDetails.html" th:text="${product.title}" th:href="@{'/web/product/detail/'+${product.productID}}"> Sản phẩm 1</a></h3>
                                                 <div class="product__card--price">
                                                     <span class="current__price" 
                                                     th:text="${product.discountPrice!=null ? #numbers.formatDecimal(product.discountPrice, 0, 'COMMA', 0, 'POINT') : #numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + 'đ'">20M VNĐ</span>
