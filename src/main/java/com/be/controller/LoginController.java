@@ -53,7 +53,7 @@ public class LoginController {
 		session.setAttribute("username", null);
 		session.setAttribute("role", "guest");
 		
-		 return RedirectHelper.redirectTo("/web/index");
+		 return RedirectHelper.redirectTo("/web/");
 	}
 
 	@PostMapping("pLogin")
@@ -73,8 +73,7 @@ public class LoginController {
 		session.setAttribute("username", account.getUsername());
 		session.setAttribute("role", account.getRole());
 
-
-		if (account.getRole().equals("user"))  return RedirectHelper.redirectTo("/web/index");
+		if (account.getRole().equals("user"))  return RedirectHelper.redirectTo("/web/");
 
 		return RedirectHelper.redirectTo("/web/admin/manufacturer/view");
 	}

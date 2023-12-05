@@ -49,5 +49,8 @@ public class Product {
 	@ManyToOne
 	@JoinColumn(name = "cateId", referencedColumnName = "cateId")
 	private Category category;
-
+	public Product(String productID) {
+		this.productID = productID;
+	}
+	
 }

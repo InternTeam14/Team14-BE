@@ -41,5 +41,9 @@ public class User {
     @OneToOne
     @JoinColumn(name = "username", referencedColumnName = "username")
     private Account account;
+
+	public User(String userId) {
+		this.userId = userId;
+	}
     
 }

@@ -80,7 +80,7 @@ public class OrderController {
 		userDTO.setPhone(user.get().getPhone());
 
 		for (String id : cartIdList) {
-			cart = cartService.getCartById(id);
+			//cart = cartService.getCartById(id);
 
 			cartResponseDto = new CartResponseDto();
 			product = productService.getById(cart.get().getProduct().getProductID());
@@ -131,7 +131,7 @@ public class OrderController {
 
 		double totalPayment = 0;
 		for (String id : orderRequestDto.getCartIds()) {
-			Optional<Cart> cart = cartService.getCartById(id);
+			//Optional<Cart> cart = cartService.getCartById(id);
 
 			OrderDetail orderDetail = new OrderDetail();
 			orderDetail.setQuantity(cart.get().getQuantity());

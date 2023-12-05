@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
 @NoArgsConstructor
 public class StorageProperties {
 	private String location;
-
 }
 
 
