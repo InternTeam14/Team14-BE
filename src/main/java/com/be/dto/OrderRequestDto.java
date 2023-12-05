@@ -25,8 +25,7 @@ public class OrderRequestDto {
 	
 	@NotBlank(message = "Địa chỉ không được để trống")
 	private String address;
-	
-	@Size(min=0, max = 500,message="Note must not exceed 500 characters")
+
 	private String note;
 	
 	List<String> cartIds;

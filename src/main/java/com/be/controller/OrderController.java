@@ -157,12 +157,6 @@ public class OrderController {
 		int randomInt = random.nextInt(1000000);
 		return String.format("%06d", randomInt);
 	}
-	
-	private Long generateRandomOrderDTId() {
-	    Random random = new Random();
-	    long randomLong = Math.abs(random.nextLong() % 1000000L);  
-	    return randomLong;
-	}
 
 
 	public ProductDTO productToProductResponese(Product product) {
