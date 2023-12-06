@@ -45,5 +45,12 @@ public class User {
 	public User(String userId) {
 		this.userId = userId;
 	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", fullName=" + fullName + ", email=" + email + ", phone=" + phone
+				+ ", address=" + address + ", avatar=" + avatar + ", enabled=" + enabled + ", sex=" + sex + ", orders="
+				+ orders + ", comments=" + comments + ", carts=" + carts + ", account=" + account + "]";
+	}
     
 }

@@ -41,4 +41,10 @@ public class Cart implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "userID", referencedColumnName = "userID")
 	private User users;
+
+	@Override
+	public String toString() {
+		return "Cart [cartId=" + cartId + ", quantity=" + quantity + ", totalAmount=" + totalAmount + ", savedDate="
+				+ savedDate + ", product=" + product + ", users=" + users + "]";
+	}
 }

@@ -1,6 +1,9 @@
 package com.be.controller;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,45 +63,51 @@ public class OrderController {
 
 	@GetMapping("/checkout")
 	public String createOrder(Model model, HttpSession session) {
-
-		List<String> cartIdList = new ArrayList<>();
-		cartIdList.add("01");
-		cartIdList.add("02");
-
-		List<CartResponseDto> cartResponseDtos = new ArrayList<>();
-
 		String username = (String) session.getAttribute("username");
-		Optional<Account> account = accountService.findById("trungpm");
+		if (username != null) {
+			Optional<Account> account = accountService.findById(username);
 
-		Optional<User> user = userService.findUserByAccount(account.get());
+			if (account.isPresent()) {
+				Optional<User> user = userService.findUserByAccount(account.get());
 
-		UserDTO userDTO = new UserDTO();
-		userDTO.setUserId(user.get().getUserId());
-		userDTO.setAddress(user.get().getAddress());
-		userDTO.setFullName(user.get().getFullName());
-		userDTO.setEmail(user.get().getEmail());
-		userDTO.setPhone(user.get().getPhone());
+				if (user.isPresent()) {
+					List<Cart> cartList = cartService.findByUserID(user.get().getUserId());
 
-		for (String id : cartIdList) {
-			//cart = cartService.getCartById(id);
+					List<CartResponseDto> cartResponseDtos = new ArrayList<>();
+					UserDTO userDTO = new UserDTO();
 
-			cartResponseDto = new CartResponseDto();
-			product = productService.getById(cart.get().getProduct().getProductID());
+					userDTO.setUserId(user.get().getUserId());
+					userDTO.setAddress(user.get().getAddress());
+					userDTO.setFullName(user.get().getFullName());
+					userDTO.setEmail(user.get().getEmail());
+					userDTO.setPhone(user.get().getPhone());
 
-			cartResponseDto.setCartId(cart.get().getCartId());
-			cartResponseDto.setQuantity(cart.get().getQuantity());
-			cartResponseDto.setProductDTO(productToProductResponese(product));
-			cartResponseDto.setPrice(product.getPrice());
-			cartResponseDto.setTotal(cart.get().getQuantity() * product.getPrice());
+					for (Cart cart : cartList) {
+						cartResponseDto = new CartResponseDto();
+						product = productService.getById(cart.getProduct().getProductID());
 
-			cartResponseDtos.add(cartResponseDto);
+						cartResponseDto.setCartId(cart.getCartId());
+						cartResponseDto.setQuantity(cart.getQuantity());
+						cartResponseDto.setProductDTO(productToProductResponese(product));
+						cartResponseDto.setPrice(product.getPrice());
+						cartResponseDto.setTotal(cart.getQuantity() * product.getPrice());
+
+						cartResponseDtos.add(cartResponseDto);
+					}
+					
+					if(cartResponseDtos.isEmpty()) {
+						return "redirect:/web/cart";
+					}
+					
+					model.addAttribute("userResponseDto", userDTO);
+					model.addAttribute("cartResponseDtos", cartResponseDtos);
+					model.addAttribute("orderRequestDto", new OrderRequestDto());
+					return "/customerUI/checkout";
+				}
+			}
 		}
-		System.out.println(cartResponseDtos);
-		model.addAttribute("userResponseDto", userDTO);
-		model.addAttribute("cartResponseDtos", cartResponseDtos);
-		model.addAttribute("orderRequestDto", new OrderRequestDto());
 
-		return "/customerUI/checkout";
+		return "redirect:/web/account/login";
 	}
 
 	@PostMapping("/add")
@@ -109,7 +118,7 @@ public class OrderController {
 		Map<String, Object> errors = new HashMap<>();
 
 		String username = (String) session.getAttribute("username");
-		Optional<Account> account = accountService.findById("trungpm");
+		Optional<Account> account = accountService.findById(username);
 
 		Optional<User> user = userService.findUserByAccount(account.get());
 
@@ -123,15 +132,19 @@ public class OrderController {
 		order.setAddress(orderRequestDto.getAddress());
 		order.setPhone(orderRequestDto.getPhone());
 		order.setNote(orderRequestDto.getNote());
+		LocalDateTime currentDateTime = LocalDateTime.now();
+
+		Date currentDate = Timestamp.valueOf(currentDateTime);
+
+		order.setOrderDate(currentDate);
+		order.setOrderStatus("new");
 		order.setUsers(user.get());
 		order.setTotalAmount(0.0);
 		orderService.save(order);
 
-		// ...
-
 		double totalPayment = 0;
 		for (String id : orderRequestDto.getCartIds()) {
-			//Optional<Cart> cart = cartService.getCartById(id);
+			cart = cartService.findById(id);
 
 			OrderDetail orderDetail = new OrderDetail();
 			orderDetail.setQuantity(cart.get().getQuantity());
@@ -141,14 +154,13 @@ public class OrderController {
 			orderDetail.setProduct(cart.get().getProduct());
 			orderDetail.setOrders(order);
 
-			orderDetailService.save(orderDetail);
-
 			totalPayment += (orderDetail.getAmount());
+			System.out.println("od: " + orderDetail);
+			orderDetailService.save(orderDetail);
 		}
 
 		order.setTotalAmount(totalPayment);
 		orderService.save(order);
-
 		return ResponseEntity.ok().body("Order Success!");
 	}
 
@@ -158,16 +170,12 @@ public class OrderController {
 		return String.format("%06d", randomInt);
 	}
 
-
 	public ProductDTO productToProductResponese(Product product) {
 		ProductDTO productResponse = new ProductDTO();
 
 		productResponse.setProductID(product.getProductID());
 		// set title
 		productResponse.setTitle(product.getTitle());
-		// set category
-		// Category category =
-		// categoryService.getById(product.getCategory().getCateId());
 		productResponse.setCateId(product.getCategory().getCateId());
 		// set price
 		productResponse.setPrice(product.getPrice());

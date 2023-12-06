@@ -96,7 +96,7 @@
 													<label class="checkout__input--label mb-5" for="input1">Họ
 														và Tên: <span class="checkout__input--label__star">*</span>
 													</label> <input class="fullname checkout__input--field border-radius-5"
-														placeholder="Full name" id="input1" type="text"
+														placeholder="Full name" id="fullName" type="text"
 														th:value="${userResponseDto.fullName}"> 
 														<small th:id="fullName-error" class="text-danger error"></small>
 												</div>
@@ -106,7 +106,7 @@
 													<label class="checkout__input--label mb-5" for="input2">Số
 														điện thoại: <span class="checkout__input--label__star">*</span>
 													</label> <input class="phone checkout__input--field border-radius-5"
-														placeholder="phone" id="input2" type="number"
+														placeholder="phone" id="phone" type="number"
 														th:value="${userResponseDto.phone}"> 
 														<small th:id="phone-error" class="text-danger error"></small>
 												</div>
@@ -121,35 +121,37 @@
 														<small th:id="email-error" class="text-danger error"></small>
 												</div>
 											</div> -->
-											<!--  <div class="col-12 mb-20">
+											 <div class="col-12 mb-20">
                                                 <div class="checkout__input--list">
-                                                    <label class="checkout__input--label mb-5" for="input4">Địa chỉ <span class="checkout__input--label__star">*</span></label>
+                                                    <label class="checkout__input--label mb-5" for="input4">Địa chỉ nhận hàng<span class="checkout__input--label__star">*</span></label>
                                                     <div class="row">
                                                       <div class="col-4">
                                                         <label class="checkout__input--label" for="input3">Chọn Tỉnh/Thành phố <span class="checkout__input--label__star">*</span></label>
                                                         <select class="checkout__input--select__field border-radius-5" name="" id="province"></select>
+                                                     	<small th:id="province-error" class="text-danger error"></small>
                                                       </div>
                                                       <div class="col-4">
                                                         <label class="checkout__input--label" for="input3">Chọn Quận/huyện<span class="checkout__input--label__star">*</span></label>
                                                         <select class="checkout__input--select__field border-radius-5" name="" id="district">
                                                           <option value="">chọn quận/huyện</option>
                                                         </select>
+                                                        <small th:id="district-error" class="text-danger error"></small>
                                                       </div>
                                                       <div class="col-4">
                                                         <label class="checkout__input--label" for="input3">Chọn Xã/phường<span class="checkout__input--label__star">*</span></label>
                                                         <select class="checkout__input--select__field border-radius-5" name="" id="ward">
                                                           <option value="">chọn xã/phường</option>
                                                         </select>
+                                                        <small th:id="ward-error" class="text-danger error"></small>
                                                       </div>
                                                     </div>
                                                   </div>
-                                            </div> -->
+                                            </div>
 											<div class="col-12 mb-20">
 												<div class="checkout__input--list">
-													<label class="checkout__input--label" for="input3">Địa
-														chỉ:<span class="checkout__input--label__star">*</span>
+													<label class="checkout__input--label" for="input3">Tên đường - số nhà:<span class="checkout__input--label__star">*</span>
 													</label> <input class="address checkout__input--field border-radius-5"
-														placeholder="Address" id="input4" type="text"
+														placeholder="Address" id="address" type="text"
 														th:value="${userResponseDto.address}">
 														<small th:id="address-error" class="text-danger error"></small>
 												</div>
@@ -168,7 +170,7 @@
 								<div
 									class="checkout__content--step__footer d-flex align-items-center">
 									<a class="continue__shipping--btn primary__btn border-radius-5"
-										href="index.html">Quay lại giỏ</a>
+										href="/web/cart">Quay lại giỏ</a>
 								</div>
 							</form>
 						</div>
@@ -281,7 +283,7 @@
 									</div>
 								</div>
 							</div>
-							<button class="checkout__now--btn primary__btn" type="submit" onclick="addData()">Thanh
+							<button class="checkout__now--btn primary__btn" type="submit">Thanh
 								Toán</button>
 						</aside>
 					</div>
@@ -368,73 +370,149 @@
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script>
 	
-	var totalProduct = document.getElementsByClassName("total-product");
-	var totalMoney = document.querySelector(".total-money");
-	var total = 0;
-	
-	function calculateTotal() {
-		  for (var i = 0; i < totalProduct.length; i++) {
-		    var value = parseFloat(totalProduct[i].getAttribute('data-total'));
-		    total += value;
-		  }
-		  totalMoney.textContent = total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });;
-	}
-	
-	calculateTotal();
-	
-	
-	var cartIds = [];
-	var csrfToken;
-	var inputElements = document.getElementsByClassName('cartId');
-	
-	function addData(){
-		
-		var fullName = $(".fullname").val();
-		var phone = $(".phone").val();
-		var address = $(".address").val();
-		var note = $(".note").val();
-		for (var i = 0; i < inputElements.length; i++) {
-		 var cartId = inputElements[i].value;
-		  if (!isNaN(cartId)) {
-		    cartIds.push(cartId);
-		  }
-		}
-		var data = {
-		  fullName: fullName,
-		  phone: phone,
-		  address: address,
-		  cartIds: cartIds,
-		  note:note
-		};
-		
-		$.ajax({
-			url: '/order/add',
-			type: 'POST',
-			contentType: "application/json",
-			data: JSON.stringify(data),
-			success: function(){
-				 alert('Đặt hàng thành công');
-			},
-			error: function(jqXHR, textStatus, errorThrown){
-			 	if (jqXHR.status === 400) {
-	      	       var errors = jqXHR.responseJSON;
-	      	        if (errors.hasOwnProperty("bindingErrors")) {
-	      	            var bindingErrors = errors["bindingErrors"];
-	      	            for (var i = 0; i < bindingErrors.length; i++) {
-	      	                var error = bindingErrors[i];
-						    // Hiển thị thông báo lỗi trong tag ID đã tạo
-						    $("#" + error.field + "-error").text(error.defaultMessage);
-	      	            }
-	      	        }
-	      	    }else{
-					   alert("Sorry! The system have errors!") 
-				}
+	document.addEventListener('DOMContentLoaded', function() {
+		var inputList = [ 'fullName','phone','address','province','district','ward'];
+
+		inputList.forEach(function(inputName) {
+			var input = document.getElementById(inputName);
+			var error = document.getElementById(inputName + '-error');
+
+			if (input) { // Kiểm tra xem phần tử input có tồn tại không
+				input.addEventListener("focus", function() {
+					error.textContent = '';
+				});
+			} else {
+				console.error("Element with id '" + inputName
+						+ "' not found in the page.");
 			}
-		})
-	}
+		});
+		
+		var selectedProvince = null;
+		var selectedDistrict = null;
+		var selectedward = null; 
+		var address = $(".address").val();
+		
+		$('#province').on('change', function() {
+        	selectedProvince =   $(this).find("option:selected").text(); 
+        });
+        $('#district').on('change', function() {
+        	selectedDistrict = $(this).find("option:selected").text();
+           
+        });
+        $('#ward').on('change', function() {
+        	selectedward = $(this).find("option:selected").text(); 
+          
+        }); 
 		
 		
-		/* const host = "https://provinces.open-api.vn/api/";
+		
+	    var totalProduct = document.getElementsByClassName("total-product");
+	    var totalMoney = document.querySelector(".total-money");
+	    var total = 0;
+
+	    function calculateTotal() {
+	        for (var i = 0; i < totalProduct.length; i++) {
+	            var value = parseFloat(totalProduct[i].getAttribute('data-total'));
+	            total += value;
+	        }
+	        totalMoney.textContent = total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+	    }
+
+	    calculateTotal();
+
+	    var csrfToken;
+
+	    function addData() {
+	    	
+
+			if (!selectedProvince || selectedProvince === 'chọn tỉnh') {
+		        // Nếu không có tỉnh/thành phố được chọn, hiển thị thông báo lỗi
+		        $("#province-error").text("Please select province/city!");
+		        return; // Dừng việc tiếp tục thực hiện thanh toán
+		    } else {
+		        // Nếu tỉnh/thành phố đã được chọn, xóa thông báo lỗi (nếu có)
+		        $("#province-error").text("");
+		    }
+			  if (!selectedDistrict || selectedDistrict === 'chọn quận huyện') {		
+			        $("#district-error").text("Please district!");
+			        return; 
+			    } else {
+			        $("#district-error").text("");
+			    }
+			  if (!selectedward || selectedward === 'chọn phường xã') {		      
+			        $("#ward-error").text("Please commune!");
+			        return; 
+			    } else {		       
+			        $("#ward-error").text("");
+			    }
+			  var address = $(".address").val();
+			  if (address === "" || address == null) {
+			      $("#address-error").text("Please provide an address!");
+			      return; 
+			  } else {
+			      $("#address-error").text("");
+			  }
+
+
+	        var fullName = $(".fullname").val();
+	        var phone = $(".phone").val();
+	        
+	        var note = $(".note").val();
+	        
+	        var cartIdElements = document.getElementsByClassName('cartId');
+	        var cartIds = [];
+
+	        for (var i = 0; i < cartIdElements.length; i++) {
+	            var cartId = cartIdElements[i].value;
+	            cartIds.push(cartId);
+	        }
+	        var address2 = selectedward + ', ' + selectedDistrict + ', ' + selectedProvince + ', ' + $(".address").val();
+	        console.log(address2);
+	        var data = {
+	            fullName: fullName,
+	            phone: phone,
+	            address: address2,
+	            cartIds: cartIds,
+	            note: note
+	        };
+
+	        $.ajax({
+	            url: '/order/add',
+	            type: 'POST',
+	            contentType: "application/json",
+	            data: JSON.stringify(data),
+	            success: function() {
+	                alert('Đặt hàng thành công');
+	            },
+	            error: function(jqXHR, textStatus, errorThrown) {
+	                if (jqXHR.status === 400) {
+	                    var errors = jqXHR.responseJSON;
+	                    if (errors.hasOwnProperty("bindingErrors")) {
+	                        var bindingErrors = errors["bindingErrors"];
+	                        for (var i = 0; i < bindingErrors.length; i++) {
+	                            var error = bindingErrors[i];
+	                            // Hiển thị thông báo lỗi trong tag ID đã tạo
+	                            $("#" + error.field + "-error").text(error.defaultMessage);
+	                        }
+	                    }
+	                } else {
+	                    alert("Sorry! The system has errors!");
+	                }
+	            }
+	        });
+	    }
+
+
+	    // Gắn sự kiện click trực tiếp vào thẻ button
+	    $('.checkout__now--btn').on('click', function(event) {
+	        event.preventDefault();
+	        addData();
+	    });
+	});
+		
+
+		
+		 const host = "https://provinces.open-api.vn/api/";
 		var callAPI = (api) => {
 		  return axios.get(api)
 		    .then((response) => {
@@ -467,15 +545,10 @@
 		
 		$("#province").change(() => {
 		  callApiDistrict(host + "p/" + $("#province").val() + "?depth=2");
-		  printResult();
 		});
 		$("#district").change(() => {
 		  callApiWard(host + "d/" + $("#district").val() + "?depth=2");
-		  printResult();
 		});
-		$("#ward").change(() => {
-		  printResult();
-		}) */
 
 </script>
 

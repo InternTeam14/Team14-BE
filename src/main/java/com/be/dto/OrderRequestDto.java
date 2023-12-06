@@ -23,7 +23,6 @@ public class OrderRequestDto {
 	@Pattern(regexp = "^(\\d{10}|\\d{12})$", message = "Số điện thoại không được để trống và từ 10 - 12 số!!")
 	private String phone;
 	
-	@NotBlank(message = "Địa chỉ không được để trống")
 	private String address;
 
 	private String note;

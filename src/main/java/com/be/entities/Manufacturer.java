@@ -24,6 +24,6 @@ public class Manufacturer {
 	@Column(length = 100, columnDefinition = "nvarchar(100)")
     private String title;
 
-	@OneToMany(mappedBy = "manufacturer")
-    private List<Product> products;
+//	@OneToMany(mappedBy = "manufacturer")
+//    private List<Product> products;
 }
