@@ -143,6 +143,7 @@ public class OrderController {
 		orderService.save(order);
 
 		double totalPayment = 0;
+		int totalQuantity = 0;
 		for (String id : orderRequestDto.getCartIds()) {
 			cart = cartService.findById(id);
 
@@ -155,11 +156,13 @@ public class OrderController {
 			orderDetail.setOrders(order);
 
 			totalPayment += (orderDetail.getAmount());
-			System.out.println("od: " + orderDetail);
+			
 			orderDetailService.save(orderDetail);
+			totalQuantity += (orderDetail.getQuantity()) ;
 		}
 
 		order.setTotalAmount(totalPayment);
+		order.setTotalQuantity(totalQuantity);
 		orderService.save(order);
 		return ResponseEntity.ok().body("Order Success!");
 	}
