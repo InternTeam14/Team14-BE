@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -23,7 +25,7 @@ public class Comment {
 	@Column(columnDefinition = "nvarchar(1000)")
     private String content;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date cmtDate;
 
 	@PrePersist
@@ -31,7 +33,9 @@ public class Comment {
         Calendar calendar = Calendar.getInstance();
         cmtDate = calendar.getTime();
     }
-
+	
+	private Boolean status;
+	
 	@ManyToOne
 	@JoinColumn(name = "userID", referencedColumnName = "userID")
 	private User users;
